@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3种循环操作</title>
+</head>
+<body>
+	<script>
+		// 需求1：三种循环求和（1-100）;(while用两种办法)
+		// 需求2： 打印你爱我吗？选否就一直问。
+
+
+		// 需求1：三种循环求和（1-100）;(while用两种办法)
+		//方式1：for循环
+		var sum = 0;
+		for (var i = 1;i <= 100;i++) {
+			sum += i;
+		}
+		console.log(sum);
+
+
+		//方式2： while循环
+		var i = 1;
+		sum = 0;
+		while(i <= 100) {
+			sum += i;
+			i++;
+		}
+		console.log(sum);
+
+
+		//do while循环
+		var i = 1;
+		sum = 0;
+		do{
+			sum += i;
+			i++;
+		}while(i <= 100);
+		console.log(sum);
+
+
+		// 需求2： 打印你爱我吗？选否就一直问。
+		while(true){
+			var word = confirm("你爱我吗？");
+			if(word){
+				break;
+			}
+
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .damao{
+            background-color: pink;
+        }
+    </style>
+    <script>
+       window.onload = function () {
+           var btns = document.getElementsByTagName("button");
+           for(var i = 0;i < btns.length;i++){
+               btns[i].onclick = function(){
+                   for(var i = 0;i < btns.length;i++){
+                       btns[i].className = "";
+                   }
+                   this.className = "damao";
+               }
+           }
+           //变量和属性的区别？——需要在点击某个按钮的时候，弹出
+
+       }
+    </script>
+</head>
+<body>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+</body>
+</html>

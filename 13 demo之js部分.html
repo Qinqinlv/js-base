@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        margin:0;
+        padding:0;
+    }
+    .box {
+        height:70px;
+        width:360px;
+        padding-top:360px;
+        border:1px solid #ccc;
+        margin:100px auto;
+        overflow: hidden;
+        background: url(images/shubiao/01big.jpg) no-repeat top center;
+    }
+    .box ul {
+        list-style:none;
+        border-top:1px solid #ccc;
+        overflow: hidden;
+    }
+    .box ul li {
+        float: left;
+
+    }
+</style>
+<script>
+    window.onload = function() {
+        function fun(l, pic) {
+            var target = document.getElementById(l);
+            var bgBox = document.getElementById("bgBox");
+            target.onmouseover = function() {
+                bgBox.style.backgroundImage = pic;
+            }
+        }
+        fun("li01","url(images/shubiao/01big.jpg)");
+        fun("li02","url(images/shubiao/02big.jpg)");
+        fun("li03","url(images/shubiao/03big.jpg)");
+        fun("li04","url(images/shubiao/04big.jpg)");
+        fun("li05","url(images/shubiao/05big.jpg)");
+    }
+
+
+</script>
+<body>
+<div class="box" id="bgBox">
+    <ul>
+        <li id="li01"><img src="images/shubiao/01.jpg" alt=""></li>
+        <li id="li02"><img src="images/shubiao/02.jpg" alt=""></li>
+        <li id="li03"><img src="images/shubiao/03.jpg" alt=""></li>
+        <li id="li04"><img src="images/shubiao/04.jpg" alt=""></li>
+        <li id="li05"><img src="images/shubiao/05.jpg" alt=""></li>
+    </ul>
+</div>
+</body>
+</html>

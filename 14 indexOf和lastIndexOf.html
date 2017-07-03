@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            function $(id){return document.getElementById(id);}
+
+            function jiance() {
+               $("btn1").onclick = function () {
+                   $("result").value = $("txt").value.indexOf($("index").value);
+               };
+                $("btn2").onclick = function () {
+                    $("result").value = $("txt").value.lastIndexOf($("index").value);
+                }
+            }
+            jiance();
+        }
+    </script>
+</head>
+<body>
+输入的字符串<input type="text" id="txt" />
+待检测的字符或字符串:<input type="text" id="index" />
+得到的索引值为：<input type="text" id="result" />
+<button id="btn1">从左开始检测字符</button>
+<button id="btn2">从右开始检测字符</button>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        .slider{
+            width: 490px;
+            height: 170px;
+            border:1px solid #ccc;
+            margin:100px auto;
+            padding:5px;
+            position: relative;
+        }
+        .slider .inner{
+            width:100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        .slider .inner ul{
+            height:1000%;
+            position: absolute;
+            top:0;
+            left:0;
+        }
+        .slider .inner ul li img{
+            display: block;
+        }
+        .slider ol{
+            position: absolute;
+            right:10px;
+            top:50%;
+            margin-top:-80px;
+        }
+        .slider ol li{
+            width:18px;
+            height: 18px;
+            text-align: center;
+            background-color: #fff;
+            margin-bottom:5px;
+        }
+        .slider ol li.current{
+            background-color: orange;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var slider = document.getElementById("Slider");
+            var ul = slider.children[0].children[0];
+            var liLis = slider.children[1].children;
+            var leader = 0,target = 0;
+
+            for(var i = 0;i < liLis.length;i++){
+                liLis[i].suoyin = i;
+                liLis[i].onmouseover = function () {
+                    for(var j = 0;j < liLis.length;j++){
+                        liLis[j].className = "";
+                    }
+                    this.className = "current";
+                    target = -this.suoyin * 170;
+                    console.log(target);
+                }
+            }
+            setInterval(function () {
+                leader = leader + (target - leader) / 10;
+                ul.style.top = leader + "px";
+            },30)
+        }
+    </script>
+</head>
+<body>
+<div class="slider" id="Slider">
+    <div class="inner">
+        <ul>
+            <li><a href="#"><img src="images/jiaodian/01.jpg" alt=""></a></li>
+            <li><a href="#"><img src="images/jiaodian/02.jpg" alt=""></a></li>
+            <li><a href="#"><img src="images/jiaodian/03.jpg" alt=""></a></li>
+            <li><a href="#"><img src="images/jiaodian/04.jpg" alt=""></a></li>
+            <li><a href="#"><img src="images/jiaodian/05.jpg" alt=""></a></li>
+        </ul>
+    </div>
+    <ol>
+        <li class="current">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ol>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js中的子节点是什么节点？</title>
+	<script>
+		window.onload = function () {
+			var div = document.querySelector("div");
+			console.log(div.firstElementChild);
+			console.log(div.lastElementChild);
+			console.log(div.children[5]);
+		}
+	</script>
+</head>
+<body>
+<!-- 小节：综合看来，js中对节点的操作中，只有childNodes才需要区分元素节点、属性节点和文本节点。其它的所有对节点操作的属性都是只针对元素节点的。 -->
+	<div>
+		<span></span>
+		<i></i>
+		<ins></ins>
+		<b></b>
+		<del></del>
+		<small></small>
+		哈哈哈
+	</div>
+</body>
+</html>

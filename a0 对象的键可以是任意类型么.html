@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数组和对象</title>
+</head>
+
+<body>
+    <script>
+    var obj = {
+        0: "zhangsan",
+        1: "lisi"
+    };
+    console.log(obj[0]); //返回的是 "zhangsan"
+    // 当对象是这种形式的时候，我们给它领取了一个名字并更换了马甲，变成了数组。 ———— 因为数组也是对象的一种。
+
+    console.log(obj.length); //返回undefinde ———— 说明对象没有length属性
+
+    var object = {
+        [1]: "xiongda",
+        // {} : "xionger",
+        null: "wangwu",
+        undefined: "xiaoming",
+        true: "huahua",
+        // {"zhangsan":112} : 12
+    }
+
+    console.log(object[[1]]);
+    // console.log(object[{}]);
+    console.log(object[null]);
+    console.log(object[undefined]);
+    console.log(object[true]);
+    // console.log(object[{"zhangsan":112}]);
+
+
+    // 我的妈呀！！这个对象的字面量真是很厉害啊！！
+    // 在json中，键一定要是使用双引号引起来的字符串；而在object的字面量中，键也可以是任意类型。不过貌似不能是对象耶~·
+    </script>
+</body>
+
+</html>

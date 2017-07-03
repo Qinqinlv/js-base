@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width: 250px;
+            height:400px;
+            border:1px solid #333;
+            margin:30px auto;
+            position: relative;
+        }
+        .content{
+            padding-right:20px;
+            height:auto;
+            background-color: orange;
+            position: absolute;
+            top:0;
+            left:0;
+        }
+        .scroll{
+            width:20px;
+            height:100%;
+            background-color: #ccc;
+            position: absolute;
+            top:0;
+            right:0;
+        }
+        .scroll .bar{
+            height:50px;
+            width:20px;
+            border-radius: 10px;
+            background-color: #f00;
+            position: absolute;
+            top:0;
+            left:0;
+            cursor: move;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("box");
+            var content = box.children[0];
+            var scroll = box.children[1];
+            var bar = scroll.children[0];
+            //要计算滚动条根据内容长度的变化，自己高度的变化。
+            // 内容超过容器越长，留在可视区的内容占的比例就越少，滚动条占父亲高度的比例也相应减少，（一个滚动条占滚动条父亲高度的比例 = 留在可视区内容的高度占内容总长度的比例）两者是正比例关系。所以，可视区盒子的高度 / 内容的总高度  =  滚动条的高度 / 父亲盒子的高度。
+            //所以，求滚动条高度的公式就是：
+            //滚动条高度 = 可视区盒子的高度 / 内容总高度 * 滚动条父亲盒子的高度
+            bar.style.height = box.offsetHeight / content.offsetHeight * scroll.offsetHeight + "px";
+            function startScroll(obj,target){
+                obj.onmousedown = function (event) {
+                    var event = event || window.event;
+                    var tp = event.clientY - obj.offsetParent.offsetTop;
+                    var that = this;
+                    document.onmousemove = function (event) {
+                        var event = event || window.event;
+                        var juli = event.clientY - tp;
+                        if(juli < 0 ){
+                            juli = 0;
+                        }else if(juli > scroll.offsetHeight - bar.offsetHeight){
+                            juli = scroll.offsetHeight - bar.offsetHeight;
+                        }
+                        that.style.top = juli + "px";
+                        //滚动条在向下移动的过程中，内容要往上走。由于可视区的高度 / 内容的总高度 = 滚动条的长度 / 滚动条父亲的高度，那么自然可以推出，滚动条向下移动的距离，也就是它的offsetTop值和内容向上移动的高度是成比例的。也就是：滚动条的当前offsetTop / 滚动条父亲高度 = 内容向上移动高度 / 内容总高度。所以，求内容向上移动距离的公式是：
+                        //内容向上移动距离 = 滚动条当前offsetTop / 滚动条父亲高度 * 内容总高度
+                        target.style.top = -that.offsetTop / scroll.offsetHeight * content.offsetHeight + "px";
+                        window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
+                    }
+                    document.onmouseup = function () {
+                        document.onmousemove = null;
+                    }
+                }
+            }
+            startScroll(bar,content);
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="content">
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+        好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上好好学习天天向上
+      好好学习天天向上好好学习天天向上
+    </div>
+    <div class="scroll">
+        <div class="bar"></div>
+    </div>
+</div>
+</body>
+</html>

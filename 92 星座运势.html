@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            font-size:14px;
+        }
+        .box{
+            width: 300px;
+            height:250px;
+            border:1px solid #333;
+            margin:100px auto;
+        }
+        .box .dt{
+            font:400 16px "SumSun";
+            line-height:30px;
+            padding:10px;
+        }
+        .box .dd{
+            padding-left:10px;
+        }
+        .box .dd .dd-t{
+            overflow: hidden;
+            padding-bottom:20px;
+        }
+        .box .dd .dd-t .left{
+            width:50px;
+            height: 50px;
+            float: left;
+            margin-right:10px;
+            background: url(images/xingzuo/Icon.png) no-repeat left top;
+        }
+        .box .dd .dd-t .right{
+            float: left;
+            font-size:14px;
+        }
+        .box .dd .dd-t .right .icon{
+            padding-top:5px;
+            font:14px/15px "SumSun";
+        }
+        .box .dd .dd-t .right .icon .num1{
+            display: inline-block;
+            width:80px;
+            height:13px;
+            background:url(images/xingzuo/yunshi.png) no-repeat left top;
+            position: relative;
+        }
+        .box .dd .dd-t .right .icon .num1 .num2{
+            position: absolute;
+            top:0;
+            left:0;
+            width:64px;
+            height:13px;
+            background: url(images/xingzuo/yunshi.png) no-repeat left bottom;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //封装获取id的元素
+            function $(idname){
+                return document.getElementById(idname);
+            }
+            //定义一个获取星座运势值的数组
+            var yunshi = [10,3,5,7,8,1,4,6,8,9,7,4];
+
+            //定义一个获取各星座内容的数组
+            var content = ["白羊座的内容","金牛座的内容","双子座的内容","",""];
+
+            $("sele").onchange =function(){
+                var val = this.value;
+                //1 当点击下拉菜单的时候，左边的背景图片随着value的值更改
+                bgchange($("bg"),val);
+                //2 点击下拉菜单的时候，下面的星星数量随着option的值更改，此时使用数组
+                $("pic").style.width = yunshi[this.value] * 8 + "px";
+                //3 点击下拉菜单的时候，下面的说明文字随着value的值更改，此时使用数组
+                $("txt").innerHTML = content[this.value];
+            }
+            //图片有很多，怎么通过变量来更新图片呢？
+            function  bgchange(obj,flag){
+                obj.style.backgroundPosition = "left " +(-50*flag)  +"px";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <div class="dt">星座运势</div>
+    <div class="dd">
+        <div class="dd-t">
+            <div class="left" id="bg"></div>
+            <div class="right">
+                <select name="" id="sele">
+                    <option value="0">白羊座 03.21-04.19</option>
+                    <option value="1">金牛座 04.20-05.29</option>
+                    <option value="2">双子座 05-29-06.26</option>
+                    <option value="3"></option>
+                    <option value="4"></option>
+                    <option value="5"></option>
+                    <option value="6"></option>
+                    <option value="7"></option>
+                    <option value="8"></option>
+                    <option value="9"></option>
+                    <option value="10"></option>
+                    <option value="11"></option>
+                </select>
+                <div class="icon">
+                    今日运势:
+                    <span class="num1">
+                         <span class="num2" id="pic"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="dd-d" id="txt">
+            在三维的宇宙中，这些恒星其实相互间不一定有实际的关系，不过其在天球这一个球壳面上的位置相近，而其实它们之间可能相距很远。如果我们身处银河中另一太阳系，我们看到的星空将会完全不同。查看更多>>
+        </div>
+    </div>
+</div>
+</body>
+</html>

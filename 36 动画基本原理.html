@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width:100px;
+            height:100px;
+            background-color: pink;
+            position: absolute;
+            top:50px;
+            left:5px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //动画的基本原理是：offsetLeft = offsetLeft + 步长；
+            //然而offsetLeft是不能直接赋值的，所以左边的offsetLeft用box.style.display替代
+            var demo = document.getElementById("demo");
+            var btn = document.getElementsByTagName("button")[0];
+            var timer = null;
+            //点击开始，demo方框就开始运动
+            btn.onclick = function () {
+                //为了达到只要一点击按钮，demo方框自动行走的目的，肯定哟啊加入定时器来做自动循环检测offsetLeft的值啦
+                timer = setInterval(function () {
+                    //当方框移动到某个距离的时候停下来，停下来，也就是不再增加offsetLeft的值，所以，要清除定时器，毕竟这个定时器的功能其实就是每隔30毫秒递增offsetLeft的值
+                    demo.style.left = demo.offsetLeft + 10 + "px";
+                    if(demo.offsetLeft > 400){
+                        clearInterval(timer);
+                    }
+                },30);
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<button>开始</button>
+<div class="box" id="demo"></div>
+</body>
+</html>

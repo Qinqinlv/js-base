@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .demo{
+            width:100px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left:20px;
+            opacity: .9;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("box");
+            var btn1 = document.getElementsByTagName("button")[0];
+            var btn2 = document.getElementsByTagName("button")[1];
+            btn1.onclick = function () {
+                animate(box,"width",300);
+            };
+            btn2.onclick = function () {
+                animate(box,"left",200);
+            }
+
+            function animate(obj,attr,target){
+                clearInterval(obj.timer);
+                obj.timer = setInterval(autoPlay,30);
+                function autoPlay(){
+                    //得到属性的原始值
+                    var current = parseInt(getStyle(obj,attr));
+                    //计算步长
+                    var step = (target - current) / 10;
+                    step = step > 0 ? Math.ceil(step):Math.floor(step);
+                    //缓动动画原理：当前属性值 = 先前属性值 + 步长
+                    obj.style[attr] = current + step + "px";
+                    if(current == target){
+                        clearInterval(obj.timer);
+                    }
+                }
+            }
+
+            function getStyle(obj,attr){
+                if(obj.currentStyle){ // ie和opeara使用
+                    return obj.currentStyle[attr];
+                }else{//w3c标准规定写法，其它普通浏览器使用
+                    return window.getComputedStyle(obj,null)[attr];
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button>200</button>
+<button>400</button>
+<div class="demo" id="box"></div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        .nav{
+            height:30px;
+            background: #036663;
+            border-bottom:1px solid #369;
+            line-height: 30px;
+            padding-left:30px;
+        }
+        .nav a {
+            color:#fff;
+            text-align: center;
+            font-size:14px;
+            text-decoration: none;
+
+        }
+        .d-box{
+            width:400px;
+            height:300px;
+            border:5px solid #eee;
+            box-shadow:2px 2px 2px 2px #666;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-top: -155px;
+            margin-left:-205px;
+
+        }
+        .hd{
+            width:100%;
+            height:25px;
+            background-color: #7c9299;
+            border-bottom:1px solid #369;
+            line-height: 25px;
+            color:white;
+            cursor: move;
+        }
+        #box_close{
+            float: right;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<script>
+    window.onload = function(){
+        var zhuce = document.getElementById("register");
+        var box = document.getElementById("d_box");
+        var drop = document.getElementById("drop");
+        //封装一个函数，使拖拽这个方框
+        //拖的是drop，移动的是box，所以需要两个参数
+        zhuce.onclick = function () {
+            box.style.display = "block";
+        }
+        function  tuozhuai(current,move){
+            current.onmousedown = function (event) {
+                var event = event || window.event;
+                var x = event.clientX;
+                var y = event.clientY;
+                var m = move.offsetLeft;
+                var n = move.offsetTop;
+                console.log(m);
+                console.log(n);
+                //其实这个拖拽方框的原理很简单，鼠标第一次点下去的时候，方框在某个固定的位置；
+                //鼠标移动到另一个位置的时候，方框现在的位置就是此时鼠标的坐标减去之前鼠标的坐标减去之前鼠标在盒子中距离盒子左上角的距离（竖直方向和垂直方向）。为什么呢？
+                //首先，鼠标期初按下的时候，点击的那点是在盒子上的，如果盒子整体移动，那么位于盒子上的每一点都要移动，而且移动的距离是一模一样的。反过来，知道了其中一点移动的距离，就能知道整个盒子移动的距离。
+                //如：鼠标第一次点击下去的时候，该点的位置是：X = oldevent.clientX,Y = oldevent.clientY;鼠标移动的时候到了一个新的位置:X = newevent.clientX,Y = newevent.clientY;那么这一点移动的距离就是：sX = newevent.clientX-oldevent.clientX;   sY = newevent.clientY-oldevent.clientY.所以，整个盒子在原来的基础上移动的距离也是sX 和sY,也就是说此时盒子的left值就是：盒子最初的offsetLeft+sX；top值就是：盒子最初的offsetTop+sY.
+
+                document.onmousemove = function(event){
+                    var event = event || window.event;
+//为什么这里还要分别加上盒子的宽度和高度的一半呢？
+                    //我们知道在一般情况下，我们在设置一个绝对定位的盒子的top和left值的时候，是没有使用marin-left = -box.offsetwidth / 2和margin-top = -box.offsetHeight/2的。刚开始在设置绝对定位的top和left为50%的时候，让margin的left和top为负，是不会影响box.offsetLeft和box.offsetTop的值的，他们实际是多少就是多少，并不等于在css中写的50%。
+                    //那么在计算盒子跟随鼠标移动left和top值的变化的时候，就是是给top和left新赋值，要想盒子在随着鼠标移动的时候不受CSS中margin的影响，就要在式子中将margin-left/margin-top的值抵消。
+                    //比如，在鼠标第一次点击时，box的left和top分别是父亲盒子的50%,但是margin-left和margin-top为-50%，这就让box盒子居中了。本来风平浪静，居中就居中，但是js来了，鼠标每移动一个像素，box的left和top就被重新赋值。比如，鼠标移动了，top值和left值被新赋值为父盒子的30%,此时margin-left和margin-top还是等于box的50%，这就会影响left和top的正常表达。就像之前的一样，本来left为50%的时候，box距离父盒子400px，box本身是200px，margin-left是-100px，此时用offsetLeft检测出来的实际left值就是300px。
+                    //所以每次在给top和left赋值的时候，都要考虑到，凡事在CSS中写的样式永远是阴魂不散，除非用js消灭。这里为了抵消margin-left和margin-top的负值（相对top，向上拉是负；对于left，向左拉是负），就要把top值和left加回来。
+                    move.style.left = event.clientX -x + m + 205+ "px";
+                    move.style.top = event.clientY - y + n + + 155+ "px";
+                    console.log(move.style.left);
+                    console.log(move.style.top);
+
+                    window.getSelection ? window.getSelection().removeAllRanges() : document
+                }
+                document.onmouseup = function () {
+                   document.onmousemove = null;
+                }
+            }
+        }
+        tuozhuai(drop,box);
+//视频中老师的方法和我的有些区别，怎么说呢？首先，鼠标第一次按下去的时候，他记录了按下的这点在盒子中的坐标。然后呢，鼠标移动到一个新的位置，为了让盒子也完美地跟着移动，新鼠标的位置在盒子中的坐标必须 = 鼠标第一次按下去的点在盒子中的坐标。也就是：鼠标按下去的时候，那一点在盒子中的位置是：X = oldevent.client - box.offsetLeft;Y = oldevent.clientY - box.offsetTop。
+        //鼠标移动到一个新的位置后，这一点在盒子中的位置是：nX = newevent.clientX - newbox.offsetLeft, nY = newevent.clientY - newbox.offsetTop.必然，nX = X,nY = Y.我们要求的是新的offsetLeft和offsetTop，所以，得到offsetLeft和offsetTop的算式如下：
+        //newoffsetLeft = newevent.clientX - (oldevent.clientX - box.offsetLeft) = newevent.clientX - X;
+        // newoffsetTop = newevent.clientY - (oldevent.clientY - box.offsetTop) = newevent.clientY - Y.
+    }
+</script>
+<body>
+<div class="nav">
+    <a href="javascript:;" id="register">注册信息</a>
+</div>
+<div class="d-box" id="d_box">
+    <div class="hd" id="drop">注册信息   (可以拖拽)
+        <span id="box_close">【关闭】</span>
+    </div>
+    <div class="bd"></div>
+</div>
+</body>
+</html>

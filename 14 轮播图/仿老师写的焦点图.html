@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <style type="text/css">
+        *{ padding:0; margin:0; list-style:none; border:0;}
+        .all{
+            width:500px;
+            height:200px;
+            padding:7px;
+            border:1px solid #ccc;
+            margin:100px auto;
+            position:relative;
+        }
+        .screen{
+            width:500px;
+            height:200px;
+            overflow:hidden;
+            position:relative;
+        }
+
+        .screen li{ width:500px; height:200px; overflow:hidden; float:left;}
+        .screen ul{ position:absolute; left:0; top:0px; width:3000px;}
+        .all ol{ position:absolute; right:10px; bottom:10px; line-height:20px; text-align:center;}
+        .all ol li{ float:left; width:20px; height:20px; background:#fff; border:1px solid #ccc; margin-left:10px; cursor:pointer;}
+        .all ol li.current{ background:yellow;}
+
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            function animate(obj,target,speed){//传入步长
+                clearInterval(obj.timer);
+                speed = obj.offsetLeft < target ? speed : -speed;
+
+                obj.timer = setInterval(function () {
+                    var result = target - obj.offsetLeft;
+                    obj.style.left = obj.offsetLeft + speed + "px";
+                    if(Math.abs(result) <= Math.abs(speed)){
+
+                        clearInterval(obj.timer);
+                        obj.style.left = target + "px";//遇到这种不合适的，强制它到指定位置。
+                    }
+                },10);
+            }
+
+
+            //无缝轮播图，需要将显示在首屏的所有图片复制一份到末尾，这样，当图片跳转的时候，由于视觉暂留效应，我们就看不出图的切换，而感觉图片是流动的
+            var box = document.getElementById("all")
+            var ul = document.getElementById("ul")
+            var ulLis = ul.children;
+            var length = ulLis.length;
+            //将第一个li克隆一份放到末尾
+            //  1   克隆完毕
+            ul.insertBefore(ul.children[0].cloneNode(true), null);//cloneNode(true),深度克隆，也就是将这个li下面的一切克隆一份，而不仅是它的标签名
+
+
+            //  2   添加ol和小li
+            var ol = document.createElement("ol");
+            box.appendChild(ol);
+            //给ol添加li，每数一个ul中的li,就在ol中创建一个li，这是使用循环的原因
+            for (var i = 0; i < length; i++) {
+                //为什么会是ul.length-1呢？因为之前克隆了一个，所以ul.length增加了，但是ol中的li的数量要等于ul没有克隆li之前的li的数量
+                var li = document.createElement("li");
+                li.innerHTML = i + 1;
+                ol.appendChild(li);
+            }
+            ol.children[0].className = "current";
+            var olLis = ol.children;
+
+
+
+            //给当前被点击的小方块加上current类,原理是：先清除所有的li的current类，再单独给被点击的li加上current类，所以需要循环，循环一个数一个，清除一个的current
+
+            //  3   开始动画部分
+            for (var i = 0; i < length; i++) {
+                olLis[i].suoyin = i;
+                olLis[i].onmouseover = function () {
+                    for (var j = 0; j < olLis.length; j++) {
+                        olLis[j].className = "";
+                    }
+                    this.className = "current";
+                    animate(ul,-this.suoyin*500,15);
+                    square = key = this.suoyin;  // 当前的索引号为主 ????还是不理解
+                    //这句话的目的是：当鼠标滑动到某一张图片的时候，一旦离开盒子启动timer，马上接着执行下一张动画。如果不写这句，我鼠标滑过第3张图片，第三个小方框变黄，鼠标离开盒子后，马上开启timer，这个timer动画的key和square都是从0开始计算，图片会快速倒回从头开始，同时会有两个小方框背景色都是黄色。
+                }
+            }
+
+            //  4   添加定时器
+            var timer = null;
+            var key = 0;
+            var square = 0;
+            timer = setInterval(autoPlay,1000);
+            function autoPlay(){
+                //每走一张图，target的值是一个小li的宽度
+                key++;
+                if(key>ulLis.length - 1){
+                    ul.style.left = 0;
+                    key = 1;
+                    //为什么key取1呢不取0呢？
+                    //当key=5的时候，图片轮播到刚好最后一张，也就是后来增加的那一张，此时ul.style.left=5个li的宽度-2500px。经过1000毫秒后，第二次调用animate函数，此时ul.style.left为0，如果key=0，那么target=0,此时animate里面的定时器依旧执行，但是target-offsetLeft = 0 - 0 = 0，0小于10，ul.style.left的值被强制得到结果ul.style.left=target=0;
+                    //又过了1000毫秒，key=1，依次往下。
+                    //之前当key=5的时候，最后一张图（就是和第一张一样的那张），已经用1000毫秒的时间轮播过了。如果key在大于5后跳转为0，就相当于第一张图片轮播了两次。所以，key = 1正确
+                }
+                animate(ul,-key*500,15);
+                //图片每轮播一张，对应的小面的小方框的背景色发生改变
+                square++;//squre和key同步变化
+                if(square > olLis.length - 1){
+                    square = 0;
+                }
+                for(var i = 0 ;i < olLis.length-1;i++){
+                    olLis[i].className = "";
+                }
+                olLis[square].className = "current";
+            }
+            //鼠标滑动大盒子，清除定时器，离开启动定时器
+            box.onmouseover = function () {
+                clearInterval(timer);
+            }
+            box.onmouseout = function () {
+                timer = setInterval(autoPlay,1000);
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="all" id='all'>
+    <div class="screen">
+        <ul id="ul">
+            <li><img src="images/taobao/1.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/2.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/3.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/4.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/5.jpg" width="500" height="200" /></li>
+        </ul>
+
+    </div>
+</div>
+</body>
+</html>

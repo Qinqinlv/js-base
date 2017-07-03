@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function(){
+            var txt = document.getElementById("txt");
+            var btn = document.getElementById("btn");
+            btn.onclick = function () {
+                var val = txt.value;
+                switch(val){
+                    case "苹果":
+                        alert("今天苹果的价格是5块钱一斤");
+                        break;
+                    case "香蕉":
+                        alert("今天香蕉的价格是3块钱一斤");
+                        break;
+                    case "桃子":
+                        alert("今天桃子的价格是2块钱一斤");
+                        break;
+                    default:
+                        alert("今天没有进货");
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="txt">
+<button id="btn">查询水果的价格</button>
+</body>
+</html>

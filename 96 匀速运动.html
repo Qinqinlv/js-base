@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width:100px;
+            height: 100px;
+            background-color:pink;
+            position: absolute;
+            top:150px;
+            left:0;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById("btn");
+            var box = document.getElementById("Box");
+            var num = 0;
+            var timer = null;
+            btn.onclick = function () {
+                timer = setInterval(autoPlay,10);
+                function autoPlay() {
+                    num++;
+                    if(num < 500){
+                        box.style.left = num + "px";
+                    }else{
+                        clearInterval(timer);
+                    }
+
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button id="btn">开始</button>
+<div class="box" id="Box"></div>
+</body>
+</html>

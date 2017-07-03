@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            function  getStringLength(str){
+                var len = 0;
+                for(var i = 0;i < str.length;i++){
+                    var c = str.charCodeAt(i);
+                    if(c >= 0 && c <= 127){
+                        len++;
+                    }else{
+                        len += 2;
+                    }
+                }
+                return len;
+            }
+            var str = "这就是爱~~~";
+            console.log(getStringLength(str));
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

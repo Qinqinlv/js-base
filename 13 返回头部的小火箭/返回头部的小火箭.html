@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            width: 2000px;
+        }
+        .top{
+            position: fixed;
+            right:50px;
+            bottom:100px;
+            display: none;
+        }
+
+    </style>
+    <script src="my.js" type="text/javascript"></script>
+    <script>
+        window.onload = function () {
+            //这段代码的功能就是：让小火箭在页面滚动的时候显示出来，当滚动一段时间后，我们想点击小火箭返回顶部，也就是scroll.top等于的0的位置，页面缓缓回到这个位置（带有动画效果）
+            var gotop = $("gotop");
+            var leader = 0,target = 0;
+            var timer = null;
+            window.onscroll = function () {
+                scroll().top > 0? show(gotop):hide(gotop);
+                //既然页面要缓缓回到最初位置，那在页面不论滚到哪里的时候，小火箭相对于可视区顶部的位置是不变的。如果不用display = fixed来限定，那么可以用leader值来限制.
+                leader = scroll().top;//或者是：
+                //点击小火箭，页面要恢复到初始位置，也就是说，当点击了小火箭，小火箭距离可视区首屏顶部的距离返回它最初的距离。如果不用定时器，直接用style.top来相应scroll().top值的变化，会有什么反应？
+                //页面瞬间就跳转回初始位置了，没有任何的过渡效果，那怎么产生过渡效果呢？就让window.scrollTo(x,y)的y值慢慢变化就可以了。怎么才能慢慢变化呢？只有不限定死，变化总是一瞬间的事。所以，这里才有加上一个定时器的必要，y值每隔一段时间变化一次，直到变为0，总需要一些时间，况且这个leader总是在趋近于某个数target，一个二元方程leader = leader + (target - leader)/10相当于：x = x + (y - x)/10 == 10x = 10x + y - x ==  x = y。如果leader和target最终两个值都不再变化，最终一定是相等的，不管target变还是不变，永远都是leader在追逐target，，最终等于target。所以，要想使window.scrollTo(x,y)的y值最终为0，让target等于0，就可以了。
+            }
+            gotop.onclick = function () {
+                timer = setInterval(function () {
+                    leader = leader + (target - leader) / 10;
+                    window.scrollTo(0,leader);
+                    //点击完一次后，出现了一个bug，无法再次下拉滚动条，这是怎么回事呢？因为window.scrollTo(0,0)将一直保持，所以，在一次点击之后要清除这个定时器，这样leader值在滑动滚动条的就又变回了leader = scroll().top.
+                    if(leader == target){
+                        clearInterval(timer);
+                    }
+                    //执行了这条语句，清除定时器的影响，就等价于，只要leader回归到正确位置，之前onclick的事件产生的影响就此定格。
+                },20);
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="gotop" class="top">
+    <img src="images/Top.jpg" alt=""/>
+</div>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+<p>我是内容部分，有很多恩多很多</p>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <script>
+    //    需求1：将一个字符串数组输出为|分割的形式，比如“刘备|张飞|关羽”。使用两种方式实现
+    // var arr = ["刘备","张飞","关羽"];
+    //    方式1：使用join()方法：
+
+    // var arrNew = [];
+    // arrNew = arr.join("|");
+    // console.log(arrNew);
+
+    //  方式2：使用遍历和字符串拼接的方式：
+    // var str = '';
+    // for(var i = 0;i < arr.length;i++) {
+    // str += arr[i] + "|";
+    // }    
+    // console.log(str);
+
+
+
+
+
+
+    //   需求2： 将一个字符串数组的元素的顺序进行反转。["a","b","c","d"] ["d","c","b","a"]。使用两种种方式实现。提示：第i个和第length-i-1个进行交换
+    //    var arr1 = [1,2,3];
+    //    console.log(arr1.reverse());
+
+    ////第一种
+    //    function reverse1(array){
+    //        var newArr = [];
+    //        for(var i=array.length-1;i>=0;i--){
+    //            newArr[newArr.length] = array[i];
+    //        }
+    //        return newArr;
+    //    }
+    ////第二种 ———— 交换对应索引之间的值，需要有一个中间变量存储数据
+    //    function reverse2(array){
+    //        for(var i=0;i<array.length/2;i++){
+    //            var temp = array[i];
+    //            array[i] = array[array.length-1-i];
+    //            array[array.length-1-i] = temp;
+    //        }
+    //        return array;
+    //    }
+
+
+
+
+    // 需求3：将工资数组中不符合条件的项去掉。
+    //    工资的数组[1500,1200,2000,2100,1800],把工资超过2000的删除
+    // var arr3 = [1500,1200,2000,2100,1800];
+
+    //   var arr3New = [];
+    //   arr3New = arr3.filter(function(ele,index,arr){
+    //       if(ele < 2000){
+    //           return true;
+    //       }
+    //   })
+
+    //   console.log(arr3New);
+
+
+
+
+    //   需求4：找出数组中每一个字符出现的次数。
+    //    ["c","a","x","a","x","a"]找到数组中每一个元素出现的次数
+    //利用对象来做。我们想知道，a出现了几次，c出现了几次，x出现了几次。
+    //k:v ..  k:v使用键值对比较方便，而使用数组，不太方便了。
+    //思路：创建一个对象，判断数组中的元素，在对象中是否存在，如果存在，值+1；否则创建一个数组元素的属性，然后给值赋值为1；
+
+    var arr5 = ["c", "a", "x", "a", "x", "a"];
+    //
+    //    var json = {};
+    ////    console.log(json["aflasdfasdf"]); 不存在的属性，返回值是undefined。
+    //    for(var i=0;i<arr5.length;i++){
+    //        //判断数组中的元素，在json中是否存在属性值。
+    //        if(json[arr5[i]]){
+    //            json[arr5[i]] += 1;
+    //        }else{
+    //            json[arr5[i]] = 1;
+    //        }
+    //    }
+    //    console.log(json);
+
+    //var  json = {"kkk":1};
+    //json["kkkk"] = 1;
+
+    var json = {};
+    for (var i = 0; i < arr5.length; i++) {
+        // 我们将每一个元素的个数作为json中的value。每一个元素作为json中的key。
+        if (json[arr5[i]]) {
+            //json对象是空的，所以arr5的每一项都会经过这个json[arr5[i]]的判断。
+            // 如果通过了if语句，说明json中json[arr5[i]]是有值的，那么这个元素就不止一个。
+
+            json[arr5[i]] += 1;
+            // 字符第一次出现的时候，执行的都是else中的语句，已经给绑定了属性值1，如果该字符再出现一次，那么它的属性值就增1.
+        } else {
+            // 遍历数组中每一项的时候，如果某个字符只出现了一次，那么这个字符的属性值就是1.
+            json[arr5[i]] = 1;
+        }
+    }
+
+    console.log(json);
+
+
+
+
+
+    //   需求5. 编写一个方法 去掉一个数组的重复元素
+    var arr = [1, 2, 3, 4, 5, 2, 3, 4];
+    console.log(arr);
+    var aaa = noRepeat(arr);
+    console.log(aaa);
+    //思路：创建一个新数组，循环遍历，只要新数组中有老数组的值，就不用再添加了。
+    function noRepeat(arr) {
+        // 定义一个标志符，当新数组中没有老数组的值时，添加进新数组；当新数组中有老数组中的值的时候，不再添加
+
+        // 开闭原则
+        var flag = true; 
+        //每次都要判断新数组中是否有就数组的值
+        var arrNew = [];
+        for (var i = 0; i < arr.length; i++) {
+            flag = true;
+            for (var j = 0; j < arrNew.length; j++) {
+                if (arrNew[j] == arr[i]) {
+                    // 只要新数组中有老数组中的值，flag就是false，表示不能再添加进新数组
+                    flag = false;
+                }
+            }
+            if (flag) {
+                arrNew[arrNew.length] = arr[i];
+            }
+
+        }
+        return arrNew;
+    }
+    </script>
+</body>
+
+</html>

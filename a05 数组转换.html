@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数组转换</title>
+</head>
+<body>
+	<script>
+		var arr = [1,2];
+		console.log(arr.toString()); //将数组装换成字符串。转换成的字符串默认由逗号分隔。
+		// 返回1,2
+
+console.log(typeof arr); //返回object 
+
+// 使用valueof 返回数组本身
+console.log(arr.valueOf());
+console.log(typeof arr.valueOf());
+
+
+
+// 使用join(？) ————将数组的每一项用?符号连接成字符串
+// join()中如果有参数，则使用参数来连接；如果join()中没有参数，默认使用逗号连接
+var arr2 = ["zhangsna","lisi","wangwu","zhaoliu"];
+console.log(arr2.join("?"));
+
+	</script>
+</body>
+</html>

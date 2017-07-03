@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        //量词  （   *+?   {}  ）
+
+        //a的个数要 >=0
+       // console.log(/^a*$/.test("b")); //false
+       // console.log(/^a*$/.test(""));  //true
+       // console.log(/^a*$/.test("a")); //true
+       // console.log(/^a*$/.test("aa")); //true
+       // console.log(/^a*$/.test("aaa")); //true
+       // console.log(/^a*$/.test("aaaa")); //true
+       // console.log(/^a*$/.test("aaaab")); //false
+// /^a*$/表示只要检索test()提供的字符串，只要里面全部是a，并且a的个数 >= 0，就返回true.
+
+
+       //  //a的个数要 >=1
+       // console.log(/^a+$/.test("b"));//false
+       // console.log(/^a+$/.test(""));//false
+       // console.log(/^a+$/.test("a"));//true
+       // console.log(/^a+$/.test("aa"));//true
+       // console.log(/^a+$/.test("aaa"));//true
+       // console.log(/^a+$/.test("aaaa"));//true
+       // console.log(/^a+$/.test("aaaab"));//false
+// /^a+$/表示只要检索test()提供的字符串，只要里面全部是a，并且a的个数 >= 1，就返回true.
+
+
+        //a的个数要么0，要么1；
+       // console.log(/^a?$/.test("b"));//false
+       // console.log(/^a?$/.test(""));//true
+       // console.log(/^a?$/.test("a"));//true
+       // console.log(/^a?$/.test("aa"));//false
+       // console.log(/^a?$/.test("aaa"));//false
+       // console.log(/^a?$/.test("aaaa"));//false
+       // console.log(/^a?$/.test("aaaab"));//false
+// /^a?$/表示只要检索test()提供的字符串，只要里面全部是a，并且 1 >= a的个数 >= 0 ，就返回true.
+
+
+
+// {}表示的是重复的次数范围
+        //{n} 一个参数，循环n次。
+        //{n,} 一个参数，循环>=n次。
+        //{n,m} 一个参数，循环n次到m次。
+       // console.log(/^a{1}$/.test("a"));//true
+       // console.log(/^a{1,}$/.test("aa"));//true
+       // console.log(/^a{1,4}$/.test("aaa"));//true
+       // console.log(/^a{1,4}$/.test("aaaa"));//true
+       // console.log(/^a{1,4}$/.test("aaaaa"));//false
+
+// /^a{1,4}$/表示只要检索test()提供的字符串，只要里面全部是a，并且 4 >= a的个数 >= 1，就返回true。
+
+
+        //括号提高运算优先级 ———— 有括号的先计算，| 前后有一个符合就可以
+       console.log(/(abc)|(xyz)/.test("ab"));//false
+       // console.log(/(abc)|(xyz)/.test("abcd"));//true
+       // console.log(/(abc)|(xyz)/.test("xy"));//false
+       // console.log(/(abc)|(xyz)/.test("xyzaaa"));//true
+       // console.log(/(abc)|(xyz)/.test("abxy"));//false
+// /(abc)|(xyz)/表示只要检索test()提供的字符串，只要里面有一个字符串是abc或者有一个字符串是xyz，都返回true。
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width:300px;
+            margin:100px auto;
+        }
+        .box ul{
+            list-style: none;
+        }
+        .box li {
+            border:1px solid #333;
+            line-height:30px;
+            margin-bottom:-1px;
+        }
+        .box li span{
+            margin-right:5px;
+        }
+        .current{
+            background-color: #333 !important;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var lis = document.getElementsByTagName("li");
+            for(var i = 0;i < lis.length;i++) {
+                if(i % 2 == 0){
+                    lis[i].style.backgroundColor = "#ccc";
+                }
+                lis[i].onmouseover = function(){
+                    this.className = "current";
+                }
+                lis[i].onmouseout = function() {
+                    this.className = "";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <ul>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+        <li><span>上证指数</span><span>3042</span><span>2017-3-19</span><span>81</span></li>
+    </ul>
+</div>
+</body>
+</html>

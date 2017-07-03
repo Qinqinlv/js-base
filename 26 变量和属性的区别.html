@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .damao{
+            background-color: pink;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //变量和属性的区别？——需要在点击某个按钮的时候，弹出当前按钮的索引值
+
+            var btns = document.getElementsByTagName("button");
+            for(var i = 0;i < btns.length;i++){
+                //每次进入循环，都给当前的对象绑定一个属性，这个属性的值就等于他的索引值
+                //注意，在一个html文档中，所有的标签都是对象。对象的属性是可以随便给的。属性和变量的区别是：
+                //变量是自由的，像未婚的女士，有选择的自由；属性就像是已婚人士，是某个人的妻子，不再有选择的自由。
+                btns[i].suoyin = i;
+                btns[i].onclick = function(){
+                    alert(this.suoyin);
+                    for(var i = 0;i < btns.length;i++){
+                        btns[i].className = "";
+                    }
+                    this.className = "damao";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+<button>浪费了两年，真是羞耻得想死</button>
+</body>
+</html>

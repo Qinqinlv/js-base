@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box{
+            width: 322px;
+            position: fixed;
+            bottom:0;
+            right:0;
+        }
+        span{
+            position: absolute;
+            top:0;
+            right:0;
+            width:30px;
+            height: 20px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            function animate(obj,jason,fn){
+                clearInterval(obj.timer);
+                obj.timer = setInterval(autoPlay,30);
+                function autoPlay(){
+                    var flag = true;//小旗帜，用来判断是否要停止定时器
+                    for(var attr in jason){
+                        //计算原始的属性值
+                        current = parseInt(getStyle(obj,attr));
+                        //计算目标位置
+                        var target = jason[attr];
+                        //计算步长原理：（目标位置 - 当前位置）/ 10(也可以是其它的数字，数字越大，动画越细腻)
+                        var step = (jason[attr] - current) / 10;
+                        //步长取整
+                        step = step > 0 ? Math.ceil(step):Math.floor(step);
+                        //缓动动画原理： 当前属性值 = 先前属性值 + 步长
+                        obj.style[attr] = current + step + "px";
+
+                        //当所有属性的current值都等于target的时候，停止定时器，这里需要在循环的外面放一个变量来检测，是否所有的属性的current都等于target
+                        if(current != target){
+                            flag = false;
+                        }
+                    }
+                    //这个if判断要写在外面
+                    if(flag){
+                        clearInterval(obj.timer);
+                        //关闭定时器之后，如果有回调函数，就执行回调函数。
+                        if(fn){
+                            fn();
+                        }
+                    }
+                    //这里有一个问题值得注意。关闭定时器的意思是：以后都不再调用定时器中的autoPlay函数，但是本次调用函数要执行完毕。
+                    // setInterval是这样的：每隔30毫秒调用一次autoPlay，也就是autoPlay每隔30毫秒才被执行一次，如果autoPlay这个函数本身要执行完需要10毫秒，那么每次autoPlay函数执行完之后会等待20毫秒才会再一次被调用。相应的，如果autoPlay这个函数本身要执行完需要100毫秒，那么setInterval这个定时器，还是每30毫秒就要再次调用函数。这样在100毫秒之内，autoPlay这个函数需要被调用3次，但是执行一次autoPlay就要100毫秒，这样setInterval规定，后面的两次调用会按次序排队，直到第一次调用autoPlay执行完毕之后，马上被第二次调用。
+                    // 第n次调用autoPaly这个函数时，关闭定时器，并且检测到有回调函数，则执行。也就是说，关闭定时器对回调函数的执行没有影响。关闭定时器就是说以后都不再调用autoPlay这个函数，autoPaly函数体中的代码接着向下执行，检测到回调函数，则接着调用。调用结束后，autoPlay函数被执行完毕，之后不再被定时器调用。
+                }
+            }
+
+            function getStyle(obj,attr){
+                if(obj.currentStyle){ // ie和opeara使用
+                    return obj.currentStyle[attr];
+                }else{//w3c标准规定写法，其它普通浏览器使用
+                    return window.getComputedStyle(obj,null)[attr];
+                }
+            }
+
+
+            var closeAd = document.getElementsByTagName("span")[0];
+            var b = document.getElementById("b");
+            closeAd.onclick = function(){
+                //b的宽度逐渐变成0，这样随着b的宽度变成0，t不断向下走
+                animate(b,{height:0},function(){
+                    //b的动画执行完毕后，接着执行下一个动作：整个box的宽度变成0
+                    animate(b.parentNode,{width:0}, function () {
+                        alert("ok啦");
+                    })
+                });
+
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <span></span>
+    <div class="hd" id="t">
+        <img src="images/huidiaohanshu/t.jpg" alt=""/>
+    </div>
+    <div class="bd" id="b">
+        <img src="images/huidiaohanshu/b.jpg" alt=""/>
+    </div>
+</div>
+</body>
+</html>

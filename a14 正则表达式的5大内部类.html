@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+    // test()的作用是判断test()函数括号中的参数是否符合调用它的正则表达式。
+        console.log("-------------预定义类-------------");
+//        console.log(/./.test("\n\r")); //.表示的不能是/n（换行，从上一行到下一行）和/t（不仅是从上一行到下一行，还从行尾直接跳到行首
+     
+//        console.log(/./.test("adsfadsgdfgdfg"));
+       
+       // /\d/匹配的是test()参数的任意一个字符，只要有任意一个字符符合标准，就可以。
+       // console.log(/\d/.test(123)); //true
+       // console.log(/\d/.test("1ab")); //true
+       // console.log(/\d/.test("ab9")); //true
+       // console.log(/\d/.test("adsfadsgdfgdfg")); //false
+       // console.log(/\s/.test("     ")); //true
+       // console.log(/\s/.test("asdfadsf")); //false
+       // console.log(/\w/.test("$")); //false
+       // console.log(/\w/.test("_")); //true
+
+        console.log("-------------简单类-------------");
+       // console.log(/chaoge/.test("chaoge")); //true
+       // console.log(/chaoge/.test("chaogenihao")); //true
+       // console.log(/chaoge/.test("nihaochaoge")); //true
+       // console.log(/chaoge/.test("chaonihaoge")); //false
+       // console.log(/chaoge/.test("chao")); //false
+//        这个/chaoge/表示在test()提供的字符串中检索，只要能够检索到chaoge这个字符串就可以
+      
+       // console.log(/[chaoge]/.test("chaoge"));  //true
+       // console.log(/[chaoge]/.test("chaogenihao")); //true
+       // console.log(/[chaoge]/.test("nihaochaoge")); //true
+       // console.log(/[chaoge]/.test("chaonihaoge")); //true
+       // console.log(/[chaoge]/.test("chao")); //true
+       // console.log(/[chaoge]/.test("a;ljr jglkrj grjgr")); //true
+       // console.log(/[chaoge]/.test("*")); //false
+// 这个/[chaoge]/表示只要在test()提供的字符串中检索到一个[chaoge]中的任意字符，就返回true。
+
+
+
+        console.log("-------------负向类-------------");
+       // console.log(/[^abc]/.test("iiii"));//true
+       // console.log(/[^abc]/.test("aiiii"));//只有一部分睁一只眼闭一只眼true
+       // console.log(/[^abc]/.test("abc"));// false
+       // console.log(/[^abc]/.test("b"));// false
+       // console.log(/[^abc]/.test("bcdef"));//只有一部分睁一只眼闭一只眼true
+       // console.log(/[^abc]/.test("abcdef"));//只有一部分睁一只眼闭一只眼true
+
+// 这个^表示的是非：比如/[^abc]/表示的是：该字符不能是a，同时不能是b，同时不能是c。
+// 其实就是&&的关系 ———— (!a) && (!b) && (!c)
+// 只要在test()提供的字符串中搜索到不是a,也不是b，也不是c的字符，就返回true.
+
+
+        console.log("-------------范围类-------------");
+       // console.log(/[a-c]/.test("dghhj")); //false
+       // console.log(/[a-c]/.test("b")); //true
+
+// /[a-c]/表示的是，检索test()提供的字符串，只要检索到一个字符是从a到c中的任意一个字符，就返回true
+
+
+        console.log("-------------组合类-------------");
+           // console.log(/[a-c1-6]/.test("dghhj")); //false
+           // console.log(/[a-c1-6]/.test("b")); //true
+           // console.log(/[a-c1-6]/.test(8)); //false
+           // console.log(/[a-c1-6]/.test(3)); //true
+
+// /[a-c1-6]/表示的是，检索test()函数提供的字符串，如果字符串中有一个字符是 a到c或者是1到6中的字符，就返回true.
+
+    </script>
+</body>
+</html>

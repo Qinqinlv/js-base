@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var dd = 12234.234354555;
+            //封装一个函数，让输入的小数，只保留两位小数
+            function getshu(shu){
+                //由于数字无法截取，所以先转为字符串处理
+                var str = shu.toString();
+                return parseFloat(str.substr(0,str.indexOf(".")+2+1));
+            }
+            console.log(getshu(dd));
+            //或者直接用toFixed()方法：
+            console.log(dd.toFixed(2));
+            //或者直接用除法来获得
+            console.log(parseInt(dd * 100) / 100);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

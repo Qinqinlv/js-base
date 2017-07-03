@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function fn(a,b) {
+        console.log(fn.length);
+        console.log(arguments.length);
+        if(fn.length != arguments.length){
+            console.error("对不起，形参和实参的个数不同，实参的传入个数应该以形参为准：2");
+        }
+    }
+    fn(1,2,3);
+</script>
+</body>
+</html>

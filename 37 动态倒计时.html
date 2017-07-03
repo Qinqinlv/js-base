@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            font:400 30px "Microsoft YaHei";
+            text-align: center;
+            color: #f00;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //定义一个变量，每当我打来这个网页的时候，就弹出问我想要设置的截止日期，通过这个截止日期，就可以得到倒计时。
+            var wenwo = prompt("请输入计算倒计时的截止时间，格式为：年/月/日");
+            var box = document.getElementById("box");
+            function dingshiqi(end){
+
+                var endTime = new Date(end);
+                //现在的时间,需要实时获取，所以需要设置一个定时器，每一秒获取一次现在的时间
+                setInterval(func,1000);
+
+                function func(){
+                    var nowTime = new Date();
+                    //两个时间之间差的秒数
+                    var seconds = parseInt((endTime.getTime() - nowTime.getTime()) / 1000);
+                    //求剩余时间的天数、时、分、秒
+                    var s = seconds % 60;
+                    var m = parseInt(seconds / 60 % 60);
+                    var h = parseInt(seconds / 3600 % 24);
+                    var day = parseInt(seconds / 3600 / 24);
+                    s<10 ? s="0"+s : s;
+                    m<10 ? m="0"+m : m;
+                    h<10 ? h="0"+h : h;
+                    day<10 ? day="0"+day : day;
+                    box.innerHTML = "距离"+end+"还剩: "+day+"天 "+h+"小时 "+m+"分 "+s+"秒";
+                }
+            }
+            dingshiqi(wenwo);
+            var m = new Date();
+            console.log(m);
+
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="box"></div>
+</body>
+</html>

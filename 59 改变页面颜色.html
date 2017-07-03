@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            function  client(){
+                //ie9和其它的所有普通浏览器都支持（也就是ie678）不支持
+                if(window.innerWidth != null){
+                    return {
+                        width:window.innerWidth,
+                        height:window.innerHeight
+                    }
+                }
+                //标准模式的文件，只有谷歌不支持(有DTD 声明)
+                else if(document.compatMode == "CSS1Compat"){
+                    return {
+                        width:document.clientWidth,
+                        height:document.clientHeight
+                    }
+                }//剩下的就是怪异文件，（没有DTD文档头声明）.谷歌和怪异浏览器支持
+                else{
+                    return {
+                        width:document.body.clientWidth,
+                        height:document.body.clientHeight
+                    }
+                }
+            }
+            //当改变可视区宽高的时候触发函数
+            //在默认情况下，只有当可视区尺寸变化的时候才会触发这个函数，也就是只有尺寸变化才会调用这个函数。然而我们希望的是，在我打开浏览器的瞬间，就调用这个函数，这样刚打开窗口，纵然没有调整可视区的尺寸，可视区也会反馈一个相应的颜色。想要这样，那在页面一加载，就需要调用一个更改背景颜色的函数，并且函数体的内容和window.onresize调用的函数是一样的。
+            clientChange();
+
+            window.onresize = clientChange;//这个函数名后面不能加括号，加括号表示调用，调用后clientChange就不再是一个函数，而是一个返回值了，对于window.onresize不起作用。你想，window.onresize = undefined,这有什么卵用呢？我们要的是，在可视区尺寸变化的时候，调用这个函数，那就直接把函数体给window.onresize好啦。
+            function clientChange(){
+                if(client().width > 960){
+                    document.body.style.backgroundColor = "purple";
+                }else if(client().width > 640){
+                    document.body.style.backgroundColor = "pink";
+                }else{
+                    document.body.style.backgroundColor = "oreange";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .father{
+            width:1000px;
+            height:400px;
+            background-color: blue;
+            margin:50px auto;
+            position: relative;
+        }
+        .box{
+            width:600px;
+            height:200px;
+            background-color: pink;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin-left:-300px;
+            margin-top:-100px;
+        }
+        .child{
+            width:50px;
+            height:50px;
+            background-color: orange;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("box");
+            var child = document.getElementById("child");
+            console.log(box.offsetLeft);
+            console.log(box.offsetTop);
+        }
+    </script>
+</head>
+<body>
+<div class="father">
+    <div class="box" id="box">
+        <div class="child" id="child"></div>
+    </div>
+    </div>
+</body>
+</html>

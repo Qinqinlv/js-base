@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function(){
+            function  $(id){return document.getElementById(id);}
+            $("btn").onclick = function () {
+
+               var n = $("txt").value.substr($("txt").value.lastIndexOf(".")).toUpperCase();
+                if(n == ".JPG" || n == ".HTML"){
+                    alert("文件格式正确");
+                }else{
+                    alert("文件格式错误");
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="file" id="txt"><button id="btn">请选择要上传的文件</button>
+</body>
+</html>

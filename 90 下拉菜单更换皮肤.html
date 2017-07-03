@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: url(images/select%20huanfu/chun1.jpg);
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var sel = document.getElementById("sele");
+            sel.onchange = function () {
+                switch(this.value){
+                    case "1":
+                        document.body.style.backgroundImage = "url(images/select%20huanfu/chun1.jpg)";
+                        break;
+                    case "2":
+                        document.body.style.backgroundImage = "url(images/select%20huanfu/xia1.jpg)";
+                        break;
+                    case "3":
+                        document.body.style.backgroundImage = "url(images/select%20huanfu/qiu1.jpg)";
+                        break;
+                    case "4":
+                        document.body.style.backgroundImage = "url(images/select%20huanfu/dong1.jpg)";
+                        break;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<select name="" id="sele">
+    <option value="1">春意眠眠</option>
+    <option value="2">夏意炎炎</option>
+    <option value="3">秋意瑟瑟</option>
+    <option value="4">冬意皑皑</option>
+</select>
+</body>
+</html>

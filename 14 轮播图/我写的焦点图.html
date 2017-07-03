@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <style type="text/css">
+        *{ padding:0; margin:0; list-style:none; border:0;}
+        .all{
+            width:500px;
+            height:200px;
+            padding:7px;
+            border:1px solid #ccc;
+            margin:100px auto;
+            position:relative;
+        }
+        .screen{
+            width:500px;
+            height:200px;
+            overflow:hidden;
+            position:relative;
+        }
+
+        .screen li{ width:500px; height:200px; overflow:hidden; float:left;}
+        .screen ul{ position:absolute; left:0; top:0px; width:3000px;}
+        .all ol{ position:absolute; right:10px; bottom:10px; line-height:20px; text-align:center;}
+        .all ol li{ float:left; width:20px; height:20px; background:#fff; border:1px solid #ccc; margin-left:10px; cursor:pointer;}
+        .all ol li.current{ background:yellow;}
+
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            //无缝轮播图，需要将显示在首屏的所有图片复制一份到末尾，这样，当图片跳转的时候，由于视觉暂留效应，我们就看不出图的切换，而感觉图片是流动的
+            var box = document.getElementById("all")
+            var ul = document.getElementById("ul")
+            var ulLis = ul.children;
+            //将第一个li克隆一份放到末尾
+            ul.insertBefore(ul.children[0].cloneNode(true),null);//cloneNode(true),深度克隆，也就是将这个li下面的一切克隆一份，而不仅是它的标签名
+            var ol = document.createElement("ol");
+            box.appendChild(ol);
+            //给ol添加li，每数一个ul中的li,就在ol中创建一个li，这是使用循环的原因
+            for(var i = 0 ;i < ulLis.length-1;i++){
+                //为什么会是ul.length-1呢？因为之前克隆了一个，所以ul.length增加了，但是ol中的li的数量要等于ul没有克隆li之前的li的数量
+                var li = document.createElement("li");
+                li.innerHTML = i + 1;
+                ol.appendChild(li);
+            }
+            ol.children[0].className = "current";
+            var olLis = ol.children;
+            var leader = 0,target = 0;
+            var timer = null,timer1 = null;
+            var leader1 = 0,target1 = 0;
+//            timer1 = setInterval(function () {
+//                target1 = target1 - 10;
+//                target1 >= -2500? target1:target1 = 0;
+//                ul.style.left = target1 + "px";
+//
+//            },30)
+
+            //该怎么写无缝滚动的缓动动画呢？
+            timer1 = setInterval(function () {
+                target1 = target1 -10;
+                leader1 = leader1 + (target1 - leader1) / 10;
+                if(leader1 <= -2500){
+                    leader1 = 0;
+                    target1 = 0;
+                }
+                console.log(leader1);
+                console.log(target1);
+                ul.style.left = leader1 + "px";
+
+            },30)
+            //给当前被点击的小方块加上current类,原理是：先清除所有的li的current类，再单独给被点击的li加上current类，所以需要循环，循环一个数一个，清除一个的current
+            for(var i = 0;i < olLis.length;i++){
+                olLis[i].suoyin = i;
+                olLis[i].onmouseover = function(){
+                    clearInterval(timer);
+                    clearInterval(timer1);
+                    for(var j = 0;j < olLis.length;j++){
+                        olLis[j].className = "";
+                    }
+                    this.className = "current";
+                    var that = this;
+                    timer = setInterval(function () {
+                        target = ulLis[that.suoyin].offsetWidth * that.suoyin;
+                        leader = leader + (target - leader) / 10;
+                        ul.style.left = -leader + "px";
+                    },30);
+                }
+//                olLis[i].onmouseout = function () {
+//                    clearInterval(timer);
+//                    clearInterval(timer1);
+//                    timer1 = setInterval(function () {
+//                        target1 = target1 - 10;
+//                        target1<= -2500 ? target1= 0 : target1;
+//                        if(target1 <= -2500){
+//                            ul.style.left = leader1 + "px";
+//                        }
+//                        leader1 = leader1 + (target1 - leader1) / 10;
+//                        ul.style.left = leader1 + "px";
+//                    },30)
+//                }
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+<div class="all" id='all'>
+    <div class="screen">
+        <ul id="ul">
+            <li><img src="images/taobao/1.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/2.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/3.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/4.jpg" width="500" height="200" /></li>
+            <li><img src="images/taobao/5.jpg" width="500" height="200" /></li>
+        </ul>
+
+    </div>
+</div>
+</body>
+</html>

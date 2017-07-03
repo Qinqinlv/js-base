@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div {
+            width: 400px;
+            margin:50px;
+        }
+        #demo {
+            width: 100px;
+            height: auto;
+            background-color: pink;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //选定文字弹出层，每次选定完文字后，方框demo都显示在光标的又下角，刚好是鼠标点击事件的clientX和clientY的位置
+            function $(idname){return document.getElementById(idname);}
+            $("test").onmouseup = function (event) {
+                var event = event || window.event;
+                var x = event.clientX;
+                var y = event.clientY;
+                //首先要选中文本，才显示demo这个盒子，如果没有选中文本就不显示,文字是否选中怎么表达呢？
+                var txt = "";
+                //表示文字选中的执行语句，普通浏览器和ie678是不一样的。
+                //ie9和其它浏览器（合称标准浏览器）表示文字选中的方式是：
+                if(window.getSelection){
+                    txt = window.getSelection().toString();//将选中的文本转化为字符串
+                }else{
+                    //下面是ie678表示文字被选中的方式
+                    txt = document.selection.createRange().text;
+                }
+                //选中文本之后，要判断文本是否真的被选中了，只有真的被选中了，才能被传入到show这个函数中执行
+                if(txt){
+                    //如果没有选中文本，那么txt就是“”，空字符串被在判断语句中被自动转换为布尔值。空字符是false
+                    ////选中的文本被传入后赋值给方框的innerHTML,这样文字就可以显示在盒子中了
+                    show($("demo"),x,y,txt);
+                    //执行完操作之后，我们需要的另一个效果是：点击除方框之外的其它地方，方框隐藏起来
+                }
+                document.onmousedown = function(event){
+                    //为什么使用的事件是onmousedown,而不是onclick呢？ onclick包含了onmousedown和onmouseup两部分，onmouseup会影响上面的代码执行，如果使用onmouseup还需要清除冒泡，为了不多此一举，就直接使用onmousedown
+                    var event = event || window.event;
+                    var targetId = event.target? event.target.id:event.srcElement.id;
+                     //       event.target.id;//event.target是event的属性
+                    //event.target是标准浏览器的用法，event.srcElement.id是ie678的用法
+                    if(targetId != "demo"){
+                        $("demo").style.display = "none";
+                    }
+                }
+
+
+            }
+            function show(obj,posX,posY,contentText){
+                //盒子的显示最好隔一点时间，要不然在ie678中会出错，文字显示不全等
+                setTimeout(function () {
+                    obj.style.display = "block";
+                    obj.style.left = posX + "px";
+                    obj.style.top = posY + "px";
+                    obj.innerHTML = contentText;
+                },300);
+
+            }
+        }
+    </script>
+</head>
+<body>
+<span id="demo"></span>
+<div id="test">我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字我要复制的文字</div>
+<div id="another">
+    我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字 我不要的文字
+</div>
+</body>
+</html>

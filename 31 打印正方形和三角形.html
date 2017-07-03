@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>打印正方形和三角形 </title>
+	<script>
+		// 需求1： 打印正方形
+		// 需求2： 打印三角形
+		// 需求3： 打印9*9乘法表
+		//需求4： 将9*9乘法表打印在table 标签当中
+
+
+		// 需求1： 打印9*9的正方形
+			for (var i = 0; i < 9;i++) {
+			//打印9行
+				for(var j = 0; j < 9 ;j ++) {
+					//打印9列
+					document.write("☆");
+				}
+				document.write("<br>");
+
+			}
+		// 需求2： 打印三角形
+		for ( var i = 1; i <= 9; i++ ) {
+			//打印9行
+			for(var j = 0 ;j < i;j++) {
+				document.write("☆");
+			}
+			document.write("<br>");
+
+		}
+		// 需求3： 打印9*9乘法表
+		// 1 * 1 = 1;
+		// 2 * 1 = 2  , 2 * 2 = 4;
+		// 打印9行，9列
+			for(var i = 1; i <= 9 ; i++) {
+				for (var j = 1; j <= i; j++) {
+					document.write(i+'*'+i+'='+i*j+"&nbsp");
+				}
+				document.write("<br>");
+			}
+
+			//需求4： 将9*9乘法表打印在table 标签当中
+			//首先要打印出table标签
+			document.write("<table border='1'><br>");
+
+			//将打印的9*9乘法表的每一行放入一个tr标签，每一项放入td标签
+
+			for(var i = 1; i <= 9; i++) {
+				document.write("<tr>");
+				for(var j = 1;j <=i;j++) {
+					document.write("<td>"+i+"*"+j+"="+i*j+"</td>");
+				}
+				document.write("</tr>")
+			}
+
+			document.write("</table>");
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

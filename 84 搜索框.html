@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    input,button {
+        margin:0;
+        padding:0;
+    }
+    .box {
+        width:258px;
+        height:40px;
+        margin:100px auto;
+        background-color: pink;
+
+    }
+    .box input {
+        width:208px;
+        height:40px;
+        background: url(images/sousuo/left.jpg) no-repeat;
+        outline-style:none;
+        padding-left:8px;
+        border:0 ;
+        color: #888;
+        float: left;
+    }
+    .box button {
+        width:42px;
+        height:40px;
+        border:0 none;
+        background: url(images/sousuo/right.jpg);
+        float: left;
+        border:0 none;
+    }
+</style>
+<script>
+    window.onload = function() {
+
+        function change(){
+            var txt = document.getElementById("txt");
+            var but = document.getElementById("but");
+            txt.onfocus = function() {
+                if (txt.value == "请输入...") {
+                    txt.value = "";
+                    txt.style.color = "#333";
+                }
+
+            }
+            txt.onblur = function(){
+                if(txt.value == ""){
+                    txt.value = "请输入...";
+                    txt.style.color = "#888";
+                }
+            }
+        }
+        change();
+    }
+</script>
+<body>
+<div class="box">
+    <input type="text"  id="txt" value="请输入...">
+    <button id="but"></button>
+</div>
+</body>
+</html>

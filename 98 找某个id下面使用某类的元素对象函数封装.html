@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:30px;
+            margin-top:5px;
+            background-color: purple;
+        }
+        #one div{
+            height:10px;
+            background-color: yellow;
+        }
+    </style>
+    <script>
+       //封装一个函数，通过这个函数找出在某个id下，使用某个类名的所有dom元素
+        window.onload = function () {
+            function getclass(classname, idname) {
+                //首先判断浏览器是够兼容
+                if (document.getElementsByClassName) {
+                    //如果传入id返回什么？如果没有传入id又返回什么？
+                    if (idname) {
+                        return document.getElementById(idname).getElementsByClassName(classname);
+                    }
+                    else {
+                        return document.getElementsByClassName(classname);
+                    }
+                }
+                //以下是不兼容的浏览器执行的代码，同样要分传入id和没有传入id的情况
+                //需要定义一个空数组，来接收返回的元素对象
+                var arr = [];
+                if (idname) {
+                    //首先，要获取这个id
+                    var getid = document.getElementById(idname);
+                    //取出这个id下所有的dom元素
+                    var doms = getid.getElementsByTagName("*");
+                } else {
+                    //取出所有的dom元素
+                    var doms = document.getElementsByTagName("*");
+                }
+                //对取出的doms进行遍历，找出使用该类的元素对象
+                for (var i = 0; i < doms.length; i++) {
+                    //将每一个元素使用的类，拆分成数组进行遍历
+                    var txtArr = doms[i].className.split(" ");
+                    for (var j = 0; j < txtArr.length; j++) {
+                        if (txtArr[j] == classname) {
+                            arr.push(doms[i]);
+                        }
+                    }
+                }
+                return arr;
+            }
+
+//            给id为one下面使用test类的元素更改背景色为粉色
+            var change = getclass("test", "one");
+            for (var i = 0; i < change.length; i++) {
+                change[i].style.backgroundColor = "pink";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="test"></div>
+<div id="one">
+    <div class="test"></div>
+    <div class="test"></div>
+</div>
+<div></div>
+<div class="test demo"></div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            //闭包的第一种写法
+            function outerFn(){
+                var a = 0;
+                function innerFn(){
+                    a++;
+                    console.log(a);
+                }
+                return innerFn;
+            }
+            var demo = outerFn();
+            demo();
+            demo()
+            var demo2 = outerFn();
+            demo2();
+            demo2();
+//            闭包的第二种写法
+            function outerFn(){
+                var a = 0;
+                return function (){
+                    a++;
+                    console.log(a);
+                }
+            }
+            //那什么是闭包呢？闭包就是一个函数中返回另一个子函数，并且这个子函数使用父亲函数中var声明的变量。
+            //将这个返回函数赋值给一个变量，这样就可以通过新赋值的这个变量来调用父函数中声明的变量
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

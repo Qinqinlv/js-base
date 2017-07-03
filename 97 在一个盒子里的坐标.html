@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #box{
+        width:500px;
+        height:200px;
+        background-color: pink;
+        marin:100px;
+    }
+</style>
+<script>
+    window.onload = function () {
+        var box = document.getElementById("box");
+        box.onmousemove = function (event) {
+            var event = event || window.event;
+            var targetX = event.clientX - this.offsetLeft;
+            var targetY = event.clientY - this.offsetTop;
+            box.innerHTML = targetX + "px" + "" + targetY + "px";
+        }
+    }
+</script>
+<body>
+<div id="box"></div>
+</body>
+</html>

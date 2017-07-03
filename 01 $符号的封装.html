@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:100px;
+            background-color: pink;
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //重新封装各浏览器都能使用的获得类名的函数
+            function getClass(classname, idname) {
+                //适应于主流浏览器
+                if (document.getElementsByClassName) {
+                    if (idname) {
+                        return document.getElementById(idname).getElementsByTagName(classname);
+                    } else {
+                        return document.getElementsByClassName(classname);
+                    }
+                }
+                else {
+                    //也分有id和没有id的情况
+                    if (idname) {
+                        var boys = document.getElementById(idname).getElementsByTagName("*");
+                    } else {
+                        var boys = document.getElementsByTagName("*");
+                    }
+                    //遍历所有的boys
+                    //定义一个空数组来接收返回的标签对象
+                    var arr = [];
+                    for (var i = 0; i < boys.length; i++) {
+                        var cla = boys[i].getAttribute("class").split(" ");
+                        for (var j = 0; j < cla.length; j++) {
+                            if (cla[j] == classname) {
+                                arr.push(cla[i]);
+                            }
+                        }
+                    }
+                    return arr;
+                }
+            }
+            console.log(getClass("one").length);
+
+            //封装新的$符号，这样就可以用一个$函数，直接取出类，id和标签
+            function $(who){
+                //首先需要将id、类和标签区分出来   #demo  .one   div
+                var s = who.charAt(0);//取出who字符串的第一个字符
+                var ss = who.substr(1);//取出除第一个字符外的所有字符
+                //三种情况，用switch来做多分支选择
+                switch (s){
+                    case "#":
+                        return document.getElementById(ss);
+                        break;
+                    case ".":
+                        return getClass(ss);
+                        break;
+                    default:
+                        return document.getElementsByTagName(who);
+                }
+            }
+            console.log($(".one").length);
+            var mm = $(".one");
+            for(var i = 0;i < mm.length;i++){
+                mm[i].style.backgroundColor = "blue";
+            }
+            $("#demo").style.backgroundColor = "purple";
+        }
+    </script>
+</head>
+<body>
+<div id="demo" class="one"></div>
+<div></div>
+<div class="one"></div>
+<div class="one"></div>
+<div class="one"></div>
+<div></div>
+<div class="two one three"></div>
+<div class="two one three"></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>

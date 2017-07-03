@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+
+        //trim();去除前后的空格
+//        var str = "     你好  我很好！     ";
+//        console.log(str);
+//        console.log(str.trim());
+
+function trim(str){
+    return str.replace(/(^\s+)|(\s+$)/,"");
+    // 将以空字符开头的行或者字符串 或者 以空字符结尾的行或字符串中的空格替换成""。
+    // 只能删除在行或字符串开头的空字符 ，以及在行或字符串末尾的空字符。
+}
+
+       
+
+        //replace(); 替换和全局替换值。
+//        var str = "Today is fine day,today is fine day!"
+//        console.log(str);
+//        console.log(str.replace(/today/ig,"tomorrow"));
+//        i表示不区分大小写
+//        g表示是在str的所有字符中，如果查找到符合正则表达式条件的就全部替换。所以g也被称为全局替换。
+
+
+        //search();  给字符查询索引
+        var str = "abcdefg";
+        console.log(str.search(/bc/));
+        console.log(str.indexOf("bc"));
+// 这里search()和indexOf()的作用相同。只是使用search()的时候参数是正则表达式。
+
+
+    </script>
+</body>
+</html>

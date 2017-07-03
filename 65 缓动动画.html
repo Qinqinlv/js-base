@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width:100px;
+            height:100px;
+            background-color: pink;
+            position: absolute;
+            top:150px;
+            left:0;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("Box");
+            var btn = document.getElementById("btn");
+            var leader = 0;
+            var target = 400;
+            btn.onclick = function () {
+                timer = setInterval(autoPlay,30);
+                function  autoPlay() {
+                    leader = leader + (target - leader)/10;
+                    box.style.left = leader + "px";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button id="btn">开始</button>
+<div class="box" id="Box"></div>
+</body>
+</html>

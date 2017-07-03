@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload  = function () {
+            var btn = document.getElementsByTagName("button")[0];
+            //只有当发生事件的时候才会出现清除冒泡与否的问题
+            btn.onclick = function (event) {
+                var event = event || window.event;
+                //w3c中规定，ie9和其它的浏览器使用的清除冒泡的方法是：event.stopPropagation
+                //下面的语句表示：如果浏览器支持使用event.stopPropagation的话，那该浏览器不是ie678，可以使用下面的代码
+                if(event && event.stopPropagation){
+                    event.stopPropagation();
+                }
+                //ie678采用下面的方法
+                else{
+                    event.cancelBubble = true;
+                }
+                alert("按钮被点击了");
+            }
+
+        }
+    </script>
+</head>
+<body>
+<button>点击</button>
+</body>
+</html>

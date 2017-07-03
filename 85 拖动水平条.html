@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            width:400px;
+            height:8px;
+            margin:100px auto;
+            background-color: #333;
+            position: relative;
+        }
+        .box .scroll {
+            width:10px;
+            height:22px;
+            background-color: #ff0;
+            position: absolute;
+            top:-7px;
+            left:0;
+        }
+        .box .demo{
+            width:0;
+            height:8px;
+            position: absolute;
+            top:0;
+            left:0;
+            background-color: yellow;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("Box");
+            var scroll = box.children[0];
+            var juli = 0;
+            var demo = box.children[1];
+            var content = document.getElementById("content");
+            scroll.onmousedown = function () {
+                var that = this;
+                //计算出父盒子距离body左边的距离，为什么不直接使用box.offsetLeft呢、
+                //当网页中嵌套许多盒子，比如box也被嵌套在一个盒子中，且box的某一个非body祖先定位，
+                //那此时使用box.offsetLeft是求不出距离的。
+                //使用下面的式子，就可以求出box距离body的距离。
+                var value = event.clientX - scroll.offsetLeft;
+                document.onmousemove = function (event) {
+                    var event = event || window.event;
+                    juli = event.clientX - value;
+                    if(juli <= 0){
+                        juli= 0;
+                    }else if(juli > 390){
+                        juli = 390;
+                    }
+                    that.style.left = juli + "px";
+                    demo.style.width = that.style.left;
+                    content.innerHTML = "已经走了全路程的:" + parseInt(juli / (box.offsetWidth-10) * 100 )+ "%";
+                    //在移动过程中清除对文字的选中
+                    window.getSelection ? window.getSelection().removeAllRanges():document.selection.empty();
+                }
+                document.onmouseup = function () {
+                    document.onmousemove = null;//鼠标弹起后不做操作
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="Box">
+    <div class="scroll"></div>
+    <div class="demo"></div>
+</div>
+<div class="content" id="content"></div>
+</body>
+</html>

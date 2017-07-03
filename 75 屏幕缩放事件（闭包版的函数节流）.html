@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var demo = document.getElementById("demo");
+            var num = 0;
+            window.onresize = throttle(function(){
+                //每开启一次定时器，实现什么功能呢？
+                //功能1 ： 每隔200毫秒demo显示一次当前视口的宽度值
+                //功能2 ： 每隔200毫秒num加1
+                demo.innerHTML = window.innerWidth || document.documentElement.clientWidth;
+                num++;
+                console.log(num);
+            },300);
+        }
+
+        //写一个定时器闭包，作为屏幕尺寸变化时的节流函数
+        function throttle(fn,delay){
+            var timer = null;
+            return function (){
+                clearTimeout(timer)
+                timer = setTimeout(fn,delay)
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="demo"></div>
+</body>
+</html>

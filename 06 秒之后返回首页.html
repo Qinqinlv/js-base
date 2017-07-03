@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .ys{
+            width:300px;
+            line-height:100px;
+            font-size: 20px;
+            color: #369;
+            text-align: center;
+            margin:50px auto;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var demo = document.getElementById("demo");
+            //设置一个定时器，5秒钟之后返回首页
+            //注意，要使用的是setTimeOut
+            setTimeout(func,1000);//表示隔1秒后，调用func函数
+            //设置一个变量来存储倒计时的时间
+            var num = 5;
+            function func() {
+                num--;
+                if(num > 0){
+                    demo.innerHTML = "还需要"+num+"秒钟可以返回<a href='http://www.baidu.com'>首页</a>";
+                    setTimeout(arguments.callee,1000);
+                    //用arguments.callee表示正在被调用的函数本身
+                }
+                else{
+                    window.location.href = "http://www.baidu.com";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="demo" class="ys"></div>
+</body>
+</html>

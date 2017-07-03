@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<script>
+    var arr = [1,234,45,6,767,88,1,9];
+    function avera(arr){
+        //设置一个变量来接收和
+        var sum = 0;
+        for(var i = 0;i < arr.length;i++){
+            sum += arr[i];
+        }
+        return sum / arr.length ;
+    }
+    console.log(avera(arr));
+</script>
+</body>
+</html>

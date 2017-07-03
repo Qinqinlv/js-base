@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("box");
+            //设置一个定时器，要求box中的内容是数字，每秒加1
+            setInterval(func,1000);
+            //设置一个变量来接收box的innerhtml
+            var num = 1;
+            function func(){
+                box.innerHTML = num;
+                num++;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="box"></div>
+</body>
+</html>

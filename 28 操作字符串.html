@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            function $(id){return document.getElementById(id);}
+            var div1 = $("div1").innerHTML;
+            var div2 = $("div2").innerHTML;
+            //点击某个按钮，便将连个字符串用concat()方法连接起来
+            function onBtnClick (idname,content) {
+                $(idname).onclick = function () {
+                    this.nextElementSibling.innerHTML = content;
+                }
+
+            }
+            onBtnClick("btn1",div1.concat(div2));
+            onBtnClick("btn2",div1.slice(3));
+            onBtnClick("btn3",div1.slice(3,6));
+            onBtnClick("btn4",div1.slice(-5,-1));
+            onBtnClick("btn5",div1.substr(3));
+            onBtnClick("btn6",div1.substr(3,6));
+            onBtnClick("btn7",div1.substr(-5,1));
+            onBtnClick("btn8",div1.substr(div1.length-5,1));
+        }
+    </script>
+</head>
+<body>
+<div id="div2">what's your name?</div>
+<div id="div1">my name is andy.</div>
+<button id="btn1">concat()</button><span> </span><br/>
+<button id="btn2">slice(3)</button><span> </span><br/>
+<button id="btn3">slice(3,6)</button><span> </span><br/>
+<button id="btn4">slice(-5,-1)</button><span> </span><br/>
+<button id="btn5">substr(3)</button><span> </span><br/>
+<button id="btn6">substr(3,6)</button><span> </span><br/>
+<button id="btn7">substr(-5,1)</button><span> </span><br/>
+<button id="btn8">substr(div1.length-5,1)</button><span> </span>
+</body>
+</html>

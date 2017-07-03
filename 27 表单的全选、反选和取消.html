@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function(){
+          var  buts = document.getElementsByTagName("button");
+            var iis = document.getElementsByTagName("input");
+            buts[0].onclick = function(){
+                for(var i = 0;i < iis.length;i++){
+                    iis[i].checked = true;
+                }
+            }
+            buts[1].onclick = function(){
+                for(var i = 0;i < iis.length;i++){
+                    iis[i].checked = false;
+                }
+            }
+            buts[2].onclick = function(){
+                for(var i = 0;i < iis.length;i++){
+                    if(iis[i].checked == true){
+                        iis[i].checked = false;
+                    }else{
+                        iis[i].checked = true;
+                    }
+                }
+
+            }
+
+            //那如果封装成函数怎么写？
+            function xiaoguo(flag){
+                for(var i = 0;i < iis.length;i++){
+                    iis[i].checked = flag;
+                }
+            }
+            buts[0].onclick = function(){
+                xiaoguo(true);
+            }
+            buts[1].onclick = function(){
+                xiaoguo(false);
+            }
+            buts[2].onclick = function(){
+                for(var i = 0;i < iis.length;i++){
+                iis[i].checked==true? iis[i].checked = false:iis[i].checked=true;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="top">
+    <button>全选</button>
+    <button>取消</button>
+    <button>反选</button>
+</div>
+<div class="bottom">
+    <ul>
+        <li>选项：<input type="checkbox"></li>
+        <li>选项：<input type="checkbox"></li>
+        <li>选项：<input type="checkbox"></li>
+        <li>选项：<input type="checkbox"></li>
+        <li>选项：<input type="checkbox"></li>
+        <li>选项：<input type="checkbox"></li>
+        <li>选项：<input type="checkbox"></li>
+    </ul>
+</div>
+</body>
+</html>

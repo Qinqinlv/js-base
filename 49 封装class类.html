@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            width:100px;
+            height:30px;
+            margin-top:5px;
+            background-color: purple;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            //封装一个函数，使所有的浏览器可以通过该函数找出拥有某个类名的所有元素对象
+            function getclass(classname){
+                //首先，高级浏览器是支持dom提供的方法的，所以，先将支持的高级浏览器筛选出来，直接使用dom提供的方法
+                if(document.getElementsByClassName){
+                    return document.getElementsByClassName(classname);
+                }
+                //不支持的浏览器采用如下的方式
+                //首先定义一个数组来接收取出使用该类的元素对象
+                var array = [];
+                //取出整个dom中所有的节点
+                var nodes = document.getElementsByTagName("*");
+                //遍历所有的节点，找到使用该类的所有元素节点(注意，所谓的使用该类，就是说只要盒子使用的所有类中，有这个类就算数)
+                for(var i = 0;i < nodes.length;i++){
+                    //将所有元素的类都分隔成数组再遍历，看看里面是否包含我们要获取的类
+                    var content = nodes.className.split(" ");//html中类和类之间是由空格隔开的
+                    for(var j = 0;j < content.length;j++){
+                        if(content[j] == classname){
+                            array.push(nodes[i]);
+                        }
+                    }
+                }
+                //返回的也是该数组
+                return array;
+            }
+           //让包含test类的盒子，背景色变为粉色
+            var txt = getclass("test");
+            for(var i = 0;i < txt.length;i++){
+                txt[i].style.backgroundColor = "pink";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="test"></div>
+<div></div>
+<div></div>
+<div class="test demo"></div>
+<div></div>
+<div></div>
+<div class="demo"></div>
+<div></div>
+<div class="demo"></div>
+<div></div>
+<div class=" test "></div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            height:2000px;
+        }
+        .mask{
+            width:100%;
+            height:100%;
+            opacity: 0.4;
+            filter:alpha(opacity = 40);
+            background-color: #000;
+            position: fixed;
+            top:0;
+            left:0;
+            display: none;
+        }
+        .box{
+            width:300px;
+            height:300px;
+            background-color: #fff;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin:-150px 0 0 -150px;
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            //点击登录，弹出box和mask
+            var box = document.getElementById("box");
+            var mask = document.getElementById("mask");
+            var login = document.getElementById("login");
+
+             login.onclick = function () {
+                 //当点击login的时候，box和mask要显示，同时，页面的滚动条要消失。因为如果不消失，别人依然可以用滚动条往下滑动看到后面的内容
+                box.style.display = "block";
+                mask.style.display = "block";
+                 document.body.style.overflow = "hidden";
+                //阻止冒泡
+                //w3c中规定的阻止冒泡的写法是：event.stopPropagation()，ie678中使用的清除冒泡的方法是：event.cancelBubble = true
+                if(event && event.stopPropagation){
+                    event.stopPropagation();
+                }else{
+                    event.cancelBubble = true;
+                }
+
+            }
+            //点击box以外的其它document地方，弹出的box和mask消失
+            document.onclick = function (event) {
+                var event = event || window.event;
+                var targetId = 0;
+                //login也属于document的一部分，如果前面书写的login.onclick的事件没有被阻止冒泡，将被合并到document.onclick之中，前面写的函数体不会执行。因为js从上到下执行。
+//                box.style.display = "none";
+//                mask.style.display = "none";
+                //执行到这里，还有一个bug，就是当鼠标点击到box身上时，原本我们是要在box身上书写内容的，但是鼠标一点击，box和mask就消失了。我们需要将box寻找出来，除了box，点击document中的任何一点，box和mask都一起消失.
+                //IE9和其它浏览器，使用event.target.id来寻找在当前被发生事件的盒子。比如这里，点击document中任何一点都可以让box和mask消失，那我真的点击下去了，点击的那一点刚好在mask上，那我使用event.target.id得到的就是mask这个盒子的id。IE678实现这个功能使用的是event.srcElement.id,所以，适应于所有浏览器的兼容写法是：
+                targetId = event.target? event.target.id:event.srcElement.id;
+                //当被点击盒子的id不是box时，box和mask才隐藏。如果是box，就不变化。
+                if(targetId != "box"){
+                    box.style.display = "none";
+                    mask.style.display = "none";
+                    document.body.style.overflow = "visible";//visible就是可见的意思，该显示显示
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button id="login">登录</button>
+<button>注册</button>
+<div class="mask" id="mask"></div>
+<div class="box" id="box"></div>
+</body>
+</html>

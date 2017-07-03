@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            //类通过原型来添加方法，这个方法可以被该类所有的孩子复用，而且不管是哪个孩子调用这个方法，
+            //a.fangfa == b.fangfa,返回是true。
+            function Person(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            //prototype就是原型的意思 —— js是面向原型的语言
+            Person.prototype.showName = function () {
+                alert("我的名字是" + this.name);
+            };
+            Person.prototype.showName = function () {
+                alert("我的名字是" + this.name);
+            };
+            var demo1 = new Person("小明",23);
+            var demo2 = new Person("小红",29);
+            console.log(demo1.showName == demo2.showName);//答案是true,为什么呢？
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

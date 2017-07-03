@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+
+        var str = "     你好，我      很好！      ";
+        console.log(str);
+       // console.log(str.trim());
+       // 字符串中有默认的消除首尾空格的函数trim()，但是这个trim()函数在ie678中不被支持。所以要封装自己的trim()函数。
+
+        console.log(trim(str));
+
+
+
+
+        function trim(str){
+            var aaa = str.replace(/(^\s+)|(\s+$)/g,"");
+            return aaa;
+        }
+
+
+        //面向对象学习
+       String.prototype.aaa = function () {
+           var aaa = this.replace(/(^\s+)|(\s+$)/g,"");
+           return aaa;
+       }
+       console.log(str.aaa());
+    </script>
+</body>
+</html>

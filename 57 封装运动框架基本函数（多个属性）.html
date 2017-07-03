@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .demo{
+            width:100px;
+            height: 200px;
+            background-color: pink;
+            position: absolute;
+            left:20px;
+            opacity: .9;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var box = document.getElementById("box");
+            var btn1 = document.getElementsByTagName("button")[0];
+            var btn2 = document.getElementsByTagName("button")[1];
+            btn1.onclick = function () {
+                animate(box,{width:300,left:150,top:140});
+            };
+            btn2.onclick = function () {
+                animate(box,{height:200,left:50,top:40});
+            };
+            function animate(obj,jason){
+                clearInterval(obj.timer);
+                obj.timer = setInterval(autoPlay,30);
+                function autoPlay(){
+                    var flag = true;//小旗帜，用来判断是否要停止定时器
+                    for(var attr in jason){
+                        //计算原始的属性值
+                        current = parseInt(getStyle(obj,attr));
+                        //计算目标位置
+                        var target = jason[attr];
+                        //计算步长原理：（目标位置 - 当前位置）/ 10(也可以是其它的数字，数字越大，动画越细腻)
+                        var step = (jason[attr] - current) / 10;
+                        //步长取整
+                        step = step > 0 ? Math.ceil(step):Math.floor(step);
+                        //缓动动画原理： 当前属性值 = 先前属性值 + 步长
+                        obj.style[attr] = current + step + "px";
+
+                        //当所有属性的current值都等于target的时候，停止定时器，
+                        // 这里需要在循环的外面放一个变量来检测，是否所有的属性的current都等于target
+                        if(current != target){
+                            flag = false;
+                        }
+                    }
+                    //这个if判断要写在外面
+                    if(flag){
+                        clearInterval(obj.timer);
+                        alert("ok啦");
+                    }
+                    //这里解释一下使用flag来判断是否关闭定时器的理由：
+                    //  1.  以前学的for循环，是这样的：for(var i=0;i < ?;i++)，这个for循环中的最后一个i++是步长，for循环的作用是让i不停的增长并执行for循环体中的代码。但是在for a in b 中，这个for循环的意思是，先遍历一下b中所有的a，对所有的a同时执行循环体中的代码。
+                    //  2. 如果向以前一样，只判断if(current == target){clearInterval(obj.timer)},每过一个计数器时间，for循环被执行一次，current和步长改变一次；当过了n个计时器时间后，发现jason中的一个属性已经满足current == target，这时就会clearInterval(obj.timer),清除了定时器，其它jason中属性的current和step值就永远停留在第一个实现current==target的时间，不会再继续变化，其它属性的current和step值如果不是和第一个满足current==target的current/step同步调，就会被卡死在中途。
+                    //  3.  使用flag来检测过程是这样的：首先经过n个定时器时间，发现jason中的某些属性已经实现target==current，但还有部分没有实现，那么只要有没有实现的，flag就是flase，此时跳出循环，发现flag是flase，就不会清除定时器；直到所有的属性都满足current==target的时候，if(current != target){flag = false;}这就话就不会被执行，那flag的值就是先前定义的初值true,接着跳出循环执行另一个if(flag){clearInterval(obj.timer);}，flag是true，所以直接关闭定时器。
+
+                }
+            }
+
+            function getStyle(obj,attr){
+                if(obj.currentStyle){ // ie和opeara使用
+                    return obj.currentStyle[attr];
+                }else{//w3c标准规定写法，其它普通浏览器使用
+                    return window.getComputedStyle(obj,null)[attr];
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<button>200</button>
+<button>400</button>
+<div class="demo" id="box"></div>
+</body>
+</html>

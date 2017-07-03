@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>函数中的arguments</title>
+</head>
+<body>
+<script>
+
+//    var arr = [];
+//    arr.push(1);
+//    console.log(arr);
+
+    fn(1,2);
+    fn(1,2,3);
+    fn(1,2,3,4,5);
+    function fn(a,b){
+        //这个arguments只能在函数中使用，表示的是实参的数组。
+        // 但是这个数组又不是真正的数组，它的长度不能改变，但是可以改变单个元素的值。
+        
+       arguments[0] = 0;
+       console.log(arguments);
+        //伪数组：不能修改长短的数组。(可以修改元素，但是不能变长变短)
+       // arguments.push(1);
+       
+       // 判断这个arguments是否是数组对象的实例
+       console.log(arguments instanceof Array); //返回false
+
+
+//        //求形参个数 （这里的形参个数只有2个）
+       console.log(fn.length); //返回2
+
+
+//        //求实参个数
+       console.log(arguments.length); //返回5
+
+        //arguments.callee表示整个函数。函数名。经常用于递归函数中调用
+       console.log(arguments.callee); //返回的整个函数 == 函数名 + 函数体
+    }
+
+
+</script>
+</body>
+</html>

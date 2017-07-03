@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>旋转木马轮播图</title>
+    <link rel="stylesheet" href="css/css.css"/>
+</head>
+<body>
+<div class="wrap" id="wrap">
+    <div class="slide" id="slide">
+        <ul>
+            <li><a href="#"><img src="images/slidepic1.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic2.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic3.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic4.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="images/slidepic5.jpg" alt=""/></a></li>
+        </ul>
+        <div class="arrow" id="arrow">
+            <a href="javascript:;" class="prev"></a>
+            <a href="javascript:;" class="next"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="js/animate.js" type="text/javascript"></script>
+<script>
+    var wrap =document.getElementById("wrap");
+    var slide = document.getElementById("slide");
+    var arrow = document.getElementById("arrow");
+    var as = arrow.children;
+    var lis = slide.children[0].children;
+    //鼠标滑过盒子，显示两个三角
+    wrap.onmouseover = function () {
+        animate(arrow,{opacity:100});
+    }
+    //鼠标离开盒子，隐藏两个三角
+    wrap.onmouseout = function(){
+        animate(arrow,{opacity:0});
+    }
+
+    //  存储了每个图片的信息
+    var json = [
+        {   //  1
+            width:400,
+            top:20,
+            left:50,
+            opacity:20,
+            z:2
+        },
+        {  // 2
+            width:600,
+            top:70,
+            left:0,
+            opacity:80,
+            z:3
+        },
+        {   // 3
+            width:800,
+            top:100,
+            left:200,
+            opacity:100,
+            z:4
+        },
+        {  // 4
+            width:600,
+            top:70,
+            left:600,
+            opacity:80,
+            z:3
+        },
+        {   //5
+            width:400,
+            top:20,
+            left:750,
+            opacity:20,
+            z:2
+        }
+    ];
+    //  两个按钮点击事件
+    // 函数节流
+    var jieliu = true; //  用来控制函数节奏的 变量
+    var as = arrow.children;
+    change();
+    for(var k in as)
+    {
+        as[k].onclick = function() {
+            if(this.className == "prev")
+            {
+                //  alert("左侧")  移除第一个   放到json 最后一个
+                if(jieliu == true){
+
+                    change(false);
+                    // 点击完毕之后，立马取反
+                    jieliu = false;
+                }
+
+            }
+            else
+            {
+                // alert('右侧');   把 最后一个json 删除   并且把最后一个添加到json 第一个位置
+
+                if(jieliu == true){
+
+                    change(true);
+                    // 点击完毕之后，立马取反
+                    jieliu = false;
+                }
+
+            }
+        }
+}
+    function change(flag){
+        if(flag){
+            json.unshift(json.pop());
+        }
+        else{
+            //移除第一个   放到json 最后一个
+            json.push(json.shift());
+        }
+        //图片的位置一共之后，所有的图片都从自己先前的样式改变到相应索引的样式
+        //比方说，第五张图本来在索引4的位置，但是经过change函数，将它剪切复制到了索引为0的位置。
+        //那么，这张图就需要将它位于索引4的时候使用的样式过渡到索引0的样式，这就需要animate动画
+        for(var i = 0;i < lis.length;i++){
+            animate(lis[i],{
+                width:json[i].width,
+                top:json[i].top,
+                left:json[i].left,
+                opacity:json[i].opacity,
+                zIndex:json[i].z
+            }, function () {
+                jieliu = true;
+            });//每次动画执行完毕，jieliu才能等于true，点击左右按钮的时候，图片才能继续走
+            //最后需要一个函数节流，也就是只能当每一次的animate结束之后，点击左右按钮，才能继续轮播
+        }
+    }
+
+</script>

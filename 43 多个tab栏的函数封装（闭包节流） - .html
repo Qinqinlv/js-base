@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .tab{
+            width: 300px;
+            margin: 100px auto;
+        }
+        .top span{
+            display: block;
+            width:98px;
+            line-height:40px;
+            border:1px solid #ccc;
+            float: left;
+            text-align: center;
+            cursor: pointer;
+        }
+        .top .bg{
+            font:400 16px/40px "Microsoft YaHei";
+            background-color: #ccc;
+        }
+        .buttom ul {
+            line-style:none;
+            margin:0;
+            padding:0;
+        }
+        .buttom li {
+            display: none;
+        }
+        .buttom .show {
+            display: block;
+        }
+        .buttom li img{
+            width:300px;
+        }
+
+    </style>
+    <script>
+        window.onload = function () {
+           function tabs(flag){
+               var target = document.getElementById(flag);
+               var spans = target.getElementsByTagName("span");
+               var lis = target.getElementsByTagName("li");
+               for(var i = 0;i < spans.length;i++){
+                   spans[i].suoyinhao = i;
+//                   spans[i].onmouseover = function () {
+//                       for(var j = 0;j < spans.length;j++){
+//                           spans[j].className = "";
+//                           lis[j].className = "";
+//                       }
+//                       this.className = "bg";
+//                       lis[this.suoyinhao].className = "show";
+//                   };
+
+
+//                   //写成闭包版，就是要通过父函数返回子函数
+//                   spans[i].onmouseover = bibao(i);//调用bibao函数并传入实参
+//                   //事件的意思就是，每当发生这个事件的时候，就调用赋值赋值给它的函数
+//                   //你看，var fn=function(){alert("...")}顶破天只能算是定义一个变量，
+//                   // 这个变量指向一个函数。可是span.onmouseover = function(){alert("...")}
+//                   //就很不一样，人家是只要发生mouseover事件，就要调用后面的函数的
+//
+//                   function bibao(num){//num是形参，用来接收实际参数
+//                       return function () {
+//                           for(var j = 0;j < spans.length;j++){
+//                               spans[j].className = "";
+//                               lis[j].className = "";
+//                           }
+//                           spans[num].className = "bg";
+//                           lis[num].className = "show";
+//                       };
+//                   }
+
+                   //还有一种写法，是函数的即时调用。
+                   //你看，fun()是调用fun这个函数，把fun这个函数名直接换成它的函数体
+                   // ，就是即时调用了
+
+//                   spans[i].onmouseover =  function (num){
+//                       //num是形参，用来接收实际参数
+//                      return function () {
+//                          for(var j = 0;j < spans.length;j++){
+//                               spans[j].className = "";
+//                               lis[j].className = "";
+//                           }
+//                           spans[num].className = "bg";
+//                           lis[num].className = "show";
+//                       };
+//                   }(i);
+
+
+
+                   var timer = null;
+                   spans[i].onmouseover =  function (num) {
+                       return function(){
+                           clearTimeout(timer);
+                           timer = setTimeout(function () {
+                               for(var j = 0;j < spans.length;j++){
+                                   spans[j].className = "";
+                                   lis[j].className = "";
+                               }
+                               spans[num].className = "bg";
+                               lis[num].className = "show";
+                           },300)
+                       }
+                   }(i);
+
+                   //当鼠标移出盒子的时候，关闭定时器,这样，
+                   // 只有鼠标在300毫秒内一直放在spans[i]上，才能触发定时器内的函数体
+                   spans[i].onmouseout = function () {
+                       clearTimeout(timer);
+                   }
+               }
+               //闭包节流，就是使用闭包中的定时器，实现功能：当鼠标停留一定时间之后，执行
+               //相应的代码，这样可以免除快速滑动带给服务器的频繁请求
+               function bibao(tn,delay){
+                   return function jieliu(){
+                       clearTimeout(timer);
+                       timer = setTimeout(fn,delay)
+                   }
+               }
+
+
+           }
+            tabs("t1");
+            tabs("t2");
+            tabs("t3");
+        }
+    </script>
+</head>
+<body>
+<div class="tab" id="t1">
+    <div class="top" id="top">
+        <span>盒子1</span>
+        <span>盒子2</span>
+        <span>盒子3</span>
+    </div>
+    <div class="buttom" id="buttom">
+        <ul>
+        <li class="show">
+            <a href="#"><img src="images/huanfu/1.jpg" alt=""></a>
+        </li>
+        <li>
+            <a href="#"><img src="images/huanfu/2.jpg" alt=""></a>
+        </li>
+        <li>
+            <a href="#"><img src="images/huanfu/3.jpg" alt=""></a>
+        </li>
+        </ul>
+    </div>
+</div>
+<div class="tab" id="t2">
+    <div class="top" id="top">
+        <span>盒子1</span>
+        <span>盒子2</span>
+        <span>盒子3</span>
+    </div>
+    <div class="buttom" id="buttom">
+        <ul>
+        <li class="show">
+            <a href="#"><img src="images/huanfu/1.jpg" alt=""></a>
+        </li>
+        <li>
+            <a href="#"><img src="images/huanfu/2.jpg" alt=""></a>
+        </li>
+        <li>
+            <a href="#"><img src="images/huanfu/3.jpg" alt=""></a>
+        </li>
+        </ul>
+    </div>
+</div>
+<div class="tab" id="t3">
+    <div class="top" id="top">
+        <span>盒子1</span>
+        <span>盒子2</span>
+        <span>盒子3</span>
+    </div>
+    <div class="buttom" id="buttom">
+        <ul>
+        <li class="show">
+            <a href="#"><img src="images/huanfu/1.jpg" alt=""></a>
+        </li>
+        <li>
+            <a href="#"><img src="images/huanfu/2.jpg" alt=""></a>
+        </li>
+        <li>
+            <a href="#"><img src="images/huanfu/3.jpg" alt=""></a>
+        </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

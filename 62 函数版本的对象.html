@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+           //这样定义一个对象固然是标准的，但是每新增一个对象，就要重新定义一遍，不利于复用
+                var obj = {};
+                obj.name = "刘德华";
+                obj.age = 55;
+                obj.showName = function () {
+                    alert("我叫刘德华");
+                }
+                obj.showAge = function () {
+                    alert("我今年18岁");
+                }
+//                console.log(obj.name);
+//                console.log(obj.age);
+//                obj.showName();
+
+            //下面将对象的定义包裹在函数体中，这样就可以实现相同定义的对象重复使用
+            function Person(name,age){
+                var obj = {};
+                obj.name = name;
+                obj.age = age;
+                obj.showName = function () {
+                    alert("我的名字是" + name);
+                };
+                obj.showAge = function () {
+                    alert("我的年龄是" + age);
+                };
+                return obj;//将定义好的对象作为Person函数的值返回
+            }
+            var xiaoming = Person("小明",23);
+            console.log(xiaoming.name);
+            xiaoming.showName();
+
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
